@@ -1,0 +1,23 @@
+{
+  "name": "kevin-bacon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rblom6/kevin-bacon.git"
+  },
+  "author": "Robbie Blom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rblom6/kevin-bacon/issues"
+  },
+  "homepage": "https://github.com/rblom6/kevin-bacon#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
