@@ -2,7 +2,6 @@ import { isConnectedToActor, getMovies, getCast, getActor, getMovie, getActorId,
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 
-
 const main = async () => {
 
     const KEVIN_BACON_IMDB_ID = 4724
