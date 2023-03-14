@@ -1,54 +1,41 @@
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from '@mui/material'
+import { useTheme } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/system'
+import { deepmerge } from '@mui/utils'
 import React from 'react'
-import { formatConnectionPath, isConnectedToActor } from "./utils/utils.js"
+import { shallow } from 'zustand/shallow'
+import './App.css'
+import { Error } from './pages/Error'
+import { HomePage } from './pages/HomePage.js'
+import { Loading } from './pages/Loading.js'
+import { Results } from './pages/Results.js'
+import { useAppStore } from './stores/AppStore.js'
+import { themeOptions } from './theme/theme-options'
 
 export const App = () => {
+    const muiSystemTheme = useTheme()
+    const theme = createTheme(deepmerge(muiSystemTheme, themeOptions()))
 
-    const main = async () => {
+    const [error, loading, searched] = useAppStore((state) => [state.error, state.loading, state.searched], shallow)
 
-        const KEVIN_BACON_IMDB_ID = 4724
-        const source_actor_name = "Tom Hanks"
-
-        const [connected, [connectionPath]] = await isConnectedToActor(287, 4724, 1)
-        console.log('connectionPath-unformatted', connectionPath)
-        console.log(await formatConnectionPath(connectionPath))
-
+    const getPages = () => {
+        if (error) {
+            // if (true) {
+            return (<Error />)
+        } else if (loading) {
+            // if (true) {
+            return (<Loading />)
+        } else if (searched) {
+            // } else if (true) {
+            return (<Results />)
+        } else {
+            return (<HomePage />)
+        }
     }
 
-
     return (
-        <>
-            <Typography>
-                Enter an Actor Name:
-            </Typography>
-            <TextField
-                label="Actor Name"
-                sx={{ 'mb': '20px' }}
-            />
-
-            <Typography>
-                Select an Actor:
-            </Typography>
-            <div style={{ "height": '50px', }} />
-
-            <FormControl>
-                <FormLabel>How many degrees from Kevin Bacon?</FormLabel>
-                <RadioGroup row>
-                    <FormControlLabel value={1} control={<Radio />} label="1" />
-                    <FormControlLabel value={2} control={<Radio />} label="2" />
-                </RadioGroup>
-            </FormControl>
-        </>
+        <ThemeProvider theme={theme}>
+            {getPages()}
+        </ThemeProvider>
     )
-    // const source_actor_id = getActorId(source_actor_name)
-
-    // const [connected, connectionPath] = await isConnectedToActor(source_actor_id, KEVIN_BACON_IMDB_ID, degree=1)
-
-    // if (connected) {
-    //     console.log("This person worked with Kevin Bacon!")
-    //     console.log(formatConnectionPath(connectionPath))
-    // } else {
-    //     console.log("This person didn't work with Kevin Bacon")
-    // }
 
 }

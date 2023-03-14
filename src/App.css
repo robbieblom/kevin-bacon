@@ -1,0 +1,29 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+}
+
+.background {
+    background-image: url('../assets/movie-crop.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: .95;
+    filter: brightness(25%);
+    position: absolute;
+}
+
+#app {
+    position: relative;
+    height: 100%;
+}
