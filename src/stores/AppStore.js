@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { mockResults } from '../mocks/mockResults'
 
 export const useAppStore = create((set) => ({
     error: false,
@@ -24,8 +23,8 @@ export const useAppStore = create((set) => ({
     setTargetActor: (ta) => {
         set({ targetActor: ta })
     },
-    // results: [],
-    results: mockResults,
+    results: [],
+    // results: mockResults,
     setResults: (r) => {
         set({ results: r })
     }

@@ -2,12 +2,14 @@ import { Autocomplete, Button, Paper, TextField, Typography } from "@mui/materia
 import { Box, Stack } from "@mui/system"
 import React, { useState } from 'react'
 import { shallow } from 'zustand/shallow'
+import { mockResults } from "../mocks/mockResults"
 import { useAppStore } from "../stores/AppStore"
 
 export const HomePage = () => {
     const [setLoading, setSearched] = useAppStore((state) => [state.setLoading, state.setSearched], shallow)
     const [setSourceActor, setTargetActor] = useAppStore(state => [state.setSourceActor, state.setTargetActor], shallow)
     const [sourceActor, targetActor] = useAppStore(state => [state.sourceActor, state.targetActor])
+    const setResults = useAppStore(state => state.setResults)
 
     const [actorValid, setActorValid] = useState(true)
     const [collaboratorValid, setCollaboratorValid] = useState(true)
@@ -29,8 +31,10 @@ export const HomePage = () => {
         }
 
         setLoading(true)
-        // do logic
         setTimeout(() => {
+            // const searchResults = MovieService.getResults()
+            const searchResults = mockResults
+            setResults(searchResults)
             setLoading(false)
             setSearched(true)
         }, 3000)
