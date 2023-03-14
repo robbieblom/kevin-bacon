@@ -65,10 +65,10 @@ export const HomePage = () => {
                 </Typography>
             </Box>
 
-            <Paper variant="outlined" sx={{ width: '430px', mt: '50px', backgroundColor: 'rgba(255,255,255,.6)' }}>
+            <Paper variant="outlined" sx={{ maxWidth: '430px', mt: '50px', backgroundColor: 'rgba(255,255,255,1)' }}>
                 <Stack className='form' spacing={2} sx={{ padding: '40px' }}>
                     <Autocomplete
-                        sx={{ width: '350px', color: 'white' }}
+                        sx={{ maxWidth: '350px', color: 'white' }}
                         options={getActorOptions()}
                         renderInput={(params) => (
                             <TextField
@@ -88,7 +88,7 @@ export const HomePage = () => {
 
                     <Autocomplete
                         options={getCollaboratorOptions()}
-                        sx={{ width: '350px' }}
+                        sx={{ maxWidth: '350px' }}
                         renderInput={(params) => (
                             <TextField
                                 required
