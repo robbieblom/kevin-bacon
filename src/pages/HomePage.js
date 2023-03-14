@@ -1,13 +1,28 @@
 import { Autocomplete, Button, Paper, TextField, Typography } from "@mui/material"
 import { Box, Stack } from "@mui/system"
-import React from 'react'
+import React, { useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useAppStore } from "../stores/AppStore"
 
 export const HomePage = () => {
     const [setLoading, setSearched] = useAppStore((state) => [state.setLoading, state.setSearched], shallow)
+    const [setSourceActor, setTargetActor] = useAppStore(state => [state.setSourceActor, state.setTargetActor], shallow)
+    const [sourceActor, targetActor] = useAppStore(state => [state.sourceActor, state.targetActor])
+
+    const [actorValid, setActorValid] = useState(true)
+    const [collaboratorValid, setCollaboratorValid] = useState(true)
+    const [sourceAndTargetAreSame, setSourceAndTargetAreSame] = useState(false)
 
     const handleSubmit = () => {
+        if (!sourceActor || !targetActor) {
+            !sourceActor ? setActorValid(false) : setCollaboratorValid(false)
+            return
+        }
+        if (sourceActor?.name == targetActor?.name) {
+            setSourceAndTargetAreSame(true)
+            return
+        }
+
         setLoading(true)
         // do logic
         setTimeout(() => {
@@ -18,17 +33,17 @@ export const HomePage = () => {
 
     const getActorOptions = () => {
         return [
-            { label: "Brad Pit" },
-            { label: "Julia Roberts" },
-            { label: "Tom Hanks" }
+            { label: "Brad Pit", name: "Brad Pit" },
+            { label: "Julia Roberts", name: "Julia Roberts" },
+            { label: "Tom Hanks", name: "Tom Hanks" }
         ]
     }
 
     const getCollaboratorOptions = () => {
         return [
-            { label: "Brad Pit" },
-            { label: "Julia Roberts" },
-            { label: "Tom Hanks" }
+            { label: "Brad Pit", name: "Brad Pit" },
+            { label: "Julia Roberts", name: "Julia Roberts" },
+            { label: "Tom Hanks", name: "Tom Hanks" }
         ]
     }
 
@@ -52,11 +67,18 @@ export const HomePage = () => {
                         options={getActorOptions()}
                         renderInput={(params) => (
                             <TextField
+                                required
                                 label="Actor Name"
+                                error={!actorValid}
+                                helperText={!actorValid ? 'Required' : ''}
                                 {...params}
-
                             />
                         )}
+                        onChange={(e, value) => {
+                            value ? setActorValid(true) : setActorValid(false)
+                            value?.name == targetActor?.name ? setSourceAndTargetAreSame(true) : setSourceAndTargetAreSame(false)
+                            setSourceActor(value)
+                        }}
                     />
 
                     <Autocomplete
@@ -64,20 +86,31 @@ export const HomePage = () => {
                         sx={{ width: '350px' }}
                         renderInput={(params) => (
                             <TextField
+                                required
                                 label="Collaborator Name"
+                                error={!collaboratorValid}
+                                helperText={!collaboratorValid ? 'Required' : ''}
                                 {...params}
-
                             />
                         )}
+                        onChange={(e, value) => {
+                            value ? setCollaboratorValid(true) : setCollaboratorValid(false)
+                            value?.name == sourceActor?.name ? setSourceAndTargetAreSame(true) : setSourceAndTargetAreSame(false)
+                            setTargetActor(value)
+                        }}
                     />
 
                     <Button
                         sx={{ width: '175px' }}
                         variant="contained"
                         onClick={handleSubmit}
+                        type='submit'
                     >
                         Search
                     </Button>
+
+                    {(sourceAndTargetAreSame) &&
+                        <Typography color='error'>Please choose different actors</Typography>}
                 </Stack>
             </Paper>
 

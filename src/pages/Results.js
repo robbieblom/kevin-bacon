@@ -28,7 +28,7 @@ export const Results = () => {
                     sx={{ justifyContent: 'center', alignItems: 'center' }}
                     spacing={8}
                 >
-                    {usedResults.map(connection => (
+                    {results.map(connection => (
                         <ResultCard
                             key={`${connection[0].id}${connection[1].id}${connection[2].id}`}
                             actor={connection[0]}
