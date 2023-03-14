@@ -15,6 +15,11 @@ export const HomePage = () => {
 
     const handleSubmit = () => {
         if (!sourceActor || !targetActor) {
+            if (!sourceActor && !targetActor) {
+                setActorValid(false)
+                setCollaboratorValid(false)
+                return
+            }
             !sourceActor ? setActorValid(false) : setCollaboratorValid(false)
             return
         }
@@ -75,8 +80,8 @@ export const HomePage = () => {
                             />
                         )}
                         onChange={(e, value) => {
-                            value ? setActorValid(true) : setActorValid(false)
-                            value?.name == targetActor?.name ? setSourceAndTargetAreSame(true) : setSourceAndTargetAreSame(false)
+                            value ? setActorValid(true) : setActorValid(false);
+                            (value && value.name == targetActor?.name) ? setSourceAndTargetAreSame(true) : setSourceAndTargetAreSame(false)
                             setSourceActor(value)
                         }}
                     />
@@ -94,8 +99,8 @@ export const HomePage = () => {
                             />
                         )}
                         onChange={(e, value) => {
-                            value ? setCollaboratorValid(true) : setCollaboratorValid(false)
-                            value?.name == sourceActor?.name ? setSourceAndTargetAreSame(true) : setSourceAndTargetAreSame(false)
+                            value ? setCollaboratorValid(true) : setCollaboratorValid(false);
+                            (value && value.name == sourceActor?.name) ? setSourceAndTargetAreSame(true) : setSourceAndTargetAreSame(false)
                             setTargetActor(value)
                         }}
                     />
