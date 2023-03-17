@@ -1,35 +1,18 @@
-import { Autocomplete, Button, Paper, TextField, Typography } from "@mui/material"
-import { Box, Stack } from "@mui/system"
-import React, { useState } from 'react'
-import { shallow } from 'zustand/shallow'
-import { mockResults } from "../mocks/mockResults"
-import { useAppStore } from "../stores/AppStore"
+import { Autocomplete, Button, Paper, TextField, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/system";
+import { Form, Formik } from 'Formik';
+import React from 'react';
+import * as yup from 'yup';
+import { shallow } from 'zustand/shallow';
+import { mockResults } from "../mocks/mockResults";
+import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
     const [setLoading, setSearched] = useAppStore((state) => [state.setLoading, state.setSearched], shallow)
     const [setSourceActor, setTargetActor] = useAppStore(state => [state.setSourceActor, state.setTargetActor], shallow)
-    const [sourceActor, targetActor] = useAppStore(state => [state.sourceActor, state.targetActor])
     const setResults = useAppStore(state => state.setResults)
 
-    const [actorValid, setActorValid] = useState(true)
-    const [collaboratorValid, setCollaboratorValid] = useState(true)
-    const [sourceAndTargetAreSame, setSourceAndTargetAreSame] = useState(false)
-
     const handleSubmit = () => {
-        if (!sourceActor || !targetActor) {
-            if (!sourceActor && !targetActor) {
-                setActorValid(false)
-                setCollaboratorValid(false)
-                return
-            }
-            !sourceActor ? setActorValid(false) : setCollaboratorValid(false)
-            return
-        }
-        if (sourceActor?.name == targetActor?.name) {
-            setSourceAndTargetAreSame(true)
-            return
-        }
-
         setLoading(true)
         setTimeout(() => {
             // const searchResults = MovieService.getResults()
@@ -56,6 +39,26 @@ export const HomePage = () => {
         ]
     }
 
+    const validationSchema = yup.object({
+        actor_name: yup.string().required('Required')
+            .test({
+                name: 'same-value-actor',
+                test: (value, ctx) => {
+                    return value != ctx.parent.collaborator_name
+                },
+                message: 'Pick two different actors'
+            }),
+        collaborator_name: yup.string().required('Required')
+            .test({
+                name: 'same-value-collaborator',
+                test: (value, ctx) => {
+                    return value != ctx.parent.actor_name
+                },
+                message: 'Pick two different actors'
+            }),
+    })
+
+
     return (
         <Box sx={{ padding: '25px 50px' }}>
             <Box className='title'>
@@ -70,60 +73,72 @@ export const HomePage = () => {
             </Box>
 
             <Paper variant="outlined" sx={{ maxWidth: '430px', mt: '50px', backgroundColor: 'rgba(255,255,255,1)' }}>
-                <Stack className='form' spacing={2} sx={{ padding: '40px' }}>
-                    <Autocomplete
-                        sx={{ maxWidth: '350px', color: 'white' }}
-                        options={getActorOptions()}
-                        renderInput={(params) => (
-                            <TextField
-                                required
-                                label="Actor Name"
-                                error={!actorValid}
-                                helperText={!actorValid ? 'Required' : ''}
-                                {...params}
-                            />
-                        )}
-                        onChange={(e, value) => {
-                            value ? setActorValid(true) : setActorValid(false);
-                            (value && value.name == targetActor?.name) ? setSourceAndTargetAreSame(true) : setSourceAndTargetAreSame(false)
-                            setSourceActor(value)
-                        }}
-                    />
+                <Formik
+                    initialValues={{ actor_name: '', collaborator_name: '' }}
+                    onSubmit={handleSubmit}
+                    validationSchema={validationSchema}
+                >
+                    {formik => (
+                        <Form>
+                            <Stack className='form' spacing={2} sx={{ padding: '40px' }}>
+                                <Autocomplete
+                                    id='actor_name'
+                                    name='actor_name'
+                                    label="Actor Name"
+                                    sx={{ maxWidth: '350px', color: 'white' }}
+                                    options={getActorOptions()}
+                                    onChange={(e, value) => {
+                                        setSourceActor(value)
+                                        formik.setFieldValue('actor_name', value ? value.name : '')
+                                    }}
+                                    onBlur={formik.handleBlur}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            label="Actor Name"
+                                            error={formik.touched.actor_name && formik.errors.actor_name}
+                                            helperText={formik.touched.actor_name ? formik.errors.actor_name : ''}
+                                            {...params}
+                                        />
+                                    )}
+                                />
 
-                    <Autocomplete
-                        options={getCollaboratorOptions()}
-                        sx={{ maxWidth: '350px' }}
-                        renderInput={(params) => (
-                            <TextField
-                                required
-                                label="Collaborator Name"
-                                error={!collaboratorValid}
-                                helperText={!collaboratorValid ? 'Required' : ''}
-                                {...params}
-                            />
-                        )}
-                        onChange={(e, value) => {
-                            value ? setCollaboratorValid(true) : setCollaboratorValid(false);
-                            (value && value.name == sourceActor?.name) ? setSourceAndTargetAreSame(true) : setSourceAndTargetAreSame(false)
-                            setTargetActor(value)
-                        }}
-                    />
+                                <Autocomplete
+                                    id='collaborator_name'
+                                    name='collaborator_name'
+                                    label="Collaborator Name"
+                                    sx={{ maxWidth: '350px' }}
+                                    options={getCollaboratorOptions()}
+                                    onChange={(e, value) => {
+                                        setTargetActor(value)
+                                        formik.setFieldValue('collaborator_name', value ? value.name : '')
+                                    }}
+                                    onBlur={formik.handleBlur}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            label="Collaborator Name"
+                                            error={formik.touched.collaborator_name && formik.errors.collaborator_name}
+                                            helperText={formik.touched.collaborator_name ? formik.errors.collaborator_name : ''}
+                                            {...params}
+                                        />
+                                    )}
+                                />
 
-                    <Button
-                        sx={{ width: '175px' }}
-                        variant="contained"
-                        onClick={handleSubmit}
-                        type='submit'
-                    >
-                        Search
-                    </Button>
+                                <Button
+                                    sx={{ width: '175px' }}
+                                    variant="contained"
+                                    type='submit'
+                                >
+                                    Search
+                                </Button>
 
-                    {(sourceAndTargetAreSame) &&
-                        <Typography color='error'>Please choose different actors</Typography>}
-                </Stack>
+                            </Stack>
+                        </Form>
+                    )}
+                </Formik>
+
             </Paper>
 
-        </Box>
+        </Box >
     )
 }
 
