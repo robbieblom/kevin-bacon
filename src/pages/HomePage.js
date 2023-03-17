@@ -1,10 +1,13 @@
 import { Autocomplete, Button, Paper, TextField, Typography } from "@mui/material";
+// import { debounce } from '@mui/material/utils';
 import { Box, Stack } from "@mui/system";
 import { Form, Formik } from 'Formik';
+// import React, { useEffect, useMemo } from 'react';
 import React from 'react';
 import * as yup from 'yup';
 import { shallow } from 'zustand/shallow';
-import { mockResults } from "../mocks/mockResults";
+// import { mockResults } from "../mocks/mockResults";
+import MovieService from "../api/movie-service";
 import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
@@ -14,14 +17,67 @@ export const HomePage = () => {
 
     const handleSubmit = () => {
         setLoading(true)
-        setTimeout(() => {
-            // const searchResults = MovieService.getResults()
-            const searchResults = mockResults
-            setResults(searchResults)
-            setLoading(false)
-            setSearched(true)
-        }, 3000)
+        // setTimeout(() => {
+        //     // const searchResults = MovieService.getResults()
+        //     const searchResults = mockResults
+        //     setResults(searchResults)
+        //     setLoading(false)
+        //     setSearched(true)
+        // }, 3000)
+        MovieService.getMovie(60308)
+            .then(r => console.log('rb', r))
     }
+
+    // const fetch = useMemo(
+    //     () =>
+    //         debounce(
+    //             (request) => {
+    //                 //fetch stuff
+    //             },
+    //             400,
+    //         ),
+    //     [],
+    // );
+
+    // useEffect(() => {
+    //     let active = true;
+
+    //     if (!autocompleteService.current && (window as any).google) {
+    //         autocompleteService.current = new (
+    //             window as any
+    //         ).google.maps.places.AutocompleteService();
+    //     }
+    //     if (!autocompleteService.current) {
+    //         return undefined;
+    //     }
+
+    //     if (inputValue === '') {
+    //         setOptions(value ? [value] : []);
+    //         return undefined;
+    //     }
+
+    //     fetch({ input: inputValue })
+    //         .then((results) => {
+    //             if (active) {
+    //                 let newOptions = [];
+
+    //                 if (value) {
+    //                     newOptions = [value];
+    //                 }
+
+    //                 if (results) {
+    //                     newOptions = [...newOptions, ...results];
+    //                 }
+
+    //                 setOptions(newOptions);
+    //             }
+
+    //         })
+
+    //     return () => {
+    //         active = false;
+    //     };
+    // }, [value, inputValue, fetch]);
 
     const getActorOptions = () => {
         return [

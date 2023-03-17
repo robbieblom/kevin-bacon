@@ -1,31 +1,65 @@
 import axios from 'axios'
 
-export class MovieService {
+const API_KEY = process.env.API_KEY
+
+class MovieService {
     constructor() {
         this.instance = axios.create({
             baseURL: 'https://api.themoviedb.org/3/',
-            authURL: `?api_key=${API_KEY}`,
-            languageURL: `&language=en-US`,
         })
     }
 
-
-
-    async getMovies(urlParams) {
-        return
+    async getMoviesForActor(actor_id) {
+        try {
+            const path = `/person/${actor_id}/movie_credits?api_key=${API_KEY}&language=en-US`
+            const { data } = await this.instance.get(path)
+            return data?.cast
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    async getCast(movie_id) {
-        return
+    async getCastForMovie(movie_id) {
+        try {
+            const path = `/movie/${movie_id}/credits?api_key=${API_KEY}&language=en-US`
+            const { data } = await this.instance.get(path)
+            return data?.cast
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    async getActor(actor_id) {
-        return
+    async getActorById(actor_id) {
+        try {
+            const path = `/person/${actor_id}?api_key=${API_KEY}&language=en-US`
+            const { data } = await this.instance.get(path)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getActorByName(actor_name) {
+        try {
+            const path = `/search/person?api_key=${API_KEY}&query=${encodeURIComponent(actor_name)}`
+            const { data } = await this.instance.get(path)
+            const actors = data.results.filter(x => x.known_for_department == 'Acting')
+            return actors
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async getMovie(movie_id) {
-        return
+        try {
+            const path = `/movie/${movie_id}?api_key=${API_KEY}&language=en-US`
+            const { data } = await this.instance.get(path)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    async getPerson
 }
+
+export default new MovieService()
