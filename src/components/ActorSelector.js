@@ -1,7 +1,7 @@
 import { Autocomplete, Avatar, Grid, TextField, Typography } from "@mui/material";
 import { debounce } from '@mui/material/utils';
 import { Box } from "@mui/system";
-import { useField } from 'Formik';
+import { useField, useFormikContext } from 'Formik';
 import React, { useEffect, useMemo, useState } from 'react';
 import MovieService from '../api/movie-service';
 
@@ -10,6 +10,7 @@ export const ActorSelector = (props) => {
     const [actorName, setActorName] = useState('');
     const [selectedActor, setSelectedActor] = useState(null)
     const [options, setOptions] = useState([]);
+    const { setValues, values } = useFormikContext()
 
     const fetchActors = useMemo(
         () =>
@@ -26,7 +27,6 @@ export const ActorSelector = (props) => {
     useEffect(() => {
         fetchActors(actorName, (results) => {
             setOptions([...results])
-            console.log('rb', results)
         })
     }, [actorName, fetchActors]);
 
@@ -50,9 +50,11 @@ export const ActorSelector = (props) => {
                 noOptionsText="No Actors"
                 value={actorName}
                 onChange={(e, value) => {
-                    setActorName(value ? value.name : '')
+                    const name = value ? value.name : ''
+                    const id = value ? value.id : ''
+                    setActorName(name)
                     setSelectedActor(value)
-                    helpers.setValue(value ? value.name : '')
+                    setValues({ ...values, [props.name]: name, [props.name.replace('name', 'id')]: id })
                     props.onChange(value)
                 }}
                 onInputChange={(e, value) => {

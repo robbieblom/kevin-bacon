@@ -32,18 +32,20 @@ export const HomePage = () => {
             .test({
                 name: 'same-value-actor',
                 test: (value, ctx) => {
-                    return value != ctx.parent.collaborator_name
+                    return ctx.parent.actor_id != ctx.parent.collaborator_id
                 },
                 message: 'Pick two different actors'
             }),
+        actor_id: yup.string(),
         collaborator_name: yup.string().required('Required')
             .test({
                 name: 'same-value-collaborator',
                 test: (value, ctx) => {
-                    return value != ctx.parent.actor_name
+                    return ctx.parent.collaborator_id != ctx.parent.actor_id
                 },
                 message: 'Pick two different actors'
             }),
+        collaborator_id: yup.string(),
     })
 
 
@@ -62,7 +64,7 @@ export const HomePage = () => {
 
             <Paper variant="outlined" sx={{ maxWidth: '430px', mt: '50px', backgroundColor: 'rgba(255,255,255,1)' }}>
                 <Formik
-                    initialValues={{ actor_name: '', collaborator_name: '' }}
+                    initialValues={{ actor_name: '', actor_id: '', collaborator_name: '', collaborator_id: '' }}
                     onSubmit={handleSubmit}
                     validationSchema={validationSchema}
                 >
