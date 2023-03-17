@@ -60,6 +60,11 @@ class MovieService {
         }
     }
 
+    getPosterImageURL(profile_path) {
+        const posterImageBaseURL = 'https://image.tmdb.org/t/p/original'
+        return posterImageBaseURL + profile_path
+    }
+
 }
 
 export default new MovieService()

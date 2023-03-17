@@ -1,19 +1,19 @@
-import { Autocomplete, Button, Paper, TextField, Typography } from "@mui/material";
-// import { debounce } from '@mui/material/utils';
+import { Button, Paper, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { Form, Formik } from 'Formik';
-// import React, { useEffect, useMemo } from 'react';
 import React from 'react';
 import * as yup from 'yup';
 import { shallow } from 'zustand/shallow';
 // import { mockResults } from "../mocks/mockResults";
-import MovieService from "../api/movie-service";
+
+import { ActorSelector } from "../components/ActorSelector";
 import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
     const [setLoading, setSearched] = useAppStore((state) => [state.setLoading, state.setSearched], shallow)
     const [setSourceActor, setTargetActor] = useAppStore(state => [state.setSourceActor, state.setTargetActor], shallow)
     const setResults = useAppStore(state => state.setResults)
+
 
     const handleSubmit = () => {
         setLoading(true)
@@ -26,73 +26,6 @@ export const HomePage = () => {
         // }, 3000)
         MovieService.getMovie(60308)
             .then(r => console.log('rb', r))
-    }
-
-    // const fetch = useMemo(
-    //     () =>
-    //         debounce(
-    //             (request) => {
-    //                 //fetch stuff
-    //             },
-    //             400,
-    //         ),
-    //     [],
-    // );
-
-    // useEffect(() => {
-    //     let active = true;
-
-    //     if (!autocompleteService.current && (window as any).google) {
-    //         autocompleteService.current = new (
-    //             window as any
-    //         ).google.maps.places.AutocompleteService();
-    //     }
-    //     if (!autocompleteService.current) {
-    //         return undefined;
-    //     }
-
-    //     if (inputValue === '') {
-    //         setOptions(value ? [value] : []);
-    //         return undefined;
-    //     }
-
-    //     fetch({ input: inputValue })
-    //         .then((results) => {
-    //             if (active) {
-    //                 let newOptions = [];
-
-    //                 if (value) {
-    //                     newOptions = [value];
-    //                 }
-
-    //                 if (results) {
-    //                     newOptions = [...newOptions, ...results];
-    //                 }
-
-    //                 setOptions(newOptions);
-    //             }
-
-    //         })
-
-    //     return () => {
-    //         active = false;
-    //     };
-    // }, [value, inputValue, fetch]);
-
-    const getActorOptions = () => {
-        return [
-            { label: "Brad Pit", name: "Brad Pit" },
-            { label: "Julia Roberts", name: "Julia Roberts" },
-            { label: "Tom Hanks", name: "Tom Hanks" }
-        ]
-    }
-
-    const getCollaboratorOptions = () => {
-        return [
-            { label: "Brad Pit", name: "Brad Pit" },
-            { label: "Julia Roberts", name: "Julia Roberts" },
-            { label: "Tom Hanks", name: "Tom Hanks" }
-        ]
     }
 
     const validationSchema = yup.object({
@@ -134,62 +67,33 @@ export const HomePage = () => {
                     onSubmit={handleSubmit}
                     validationSchema={validationSchema}
                 >
-                    {formik => (
-                        <Form>
-                            <Stack className='form' spacing={2} sx={{ padding: '40px' }}>
-                                <Autocomplete
-                                    id='actor_name'
-                                    name='actor_name'
-                                    label="Actor Name"
-                                    sx={{ maxWidth: '350px', color: 'white' }}
-                                    options={getActorOptions()}
-                                    onChange={(e, value) => {
-                                        setSourceActor(value)
-                                        formik.setFieldValue('actor_name', value ? value.name : '')
-                                    }}
-                                    onBlur={formik.handleBlur}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            label="Actor Name"
-                                            error={formik.touched.actor_name && formik.errors.actor_name}
-                                            helperText={formik.touched.actor_name ? formik.errors.actor_name : ''}
-                                            {...params}
-                                        />
-                                    )}
-                                />
+                    <Form>
+                        <Stack className='form' spacing={2} sx={{ padding: '40px' }}>
+                            <ActorSelector
+                                id='actor_name'
+                                name='actor_name'
+                                label="Actor Name"
+                                sx={{ maxWidth: '350px', color: 'white' }}
+                            />
 
-                                <Autocomplete
-                                    id='collaborator_name'
-                                    name='collaborator_name'
-                                    label="Collaborator Name"
-                                    sx={{ maxWidth: '350px' }}
-                                    options={getCollaboratorOptions()}
-                                    onChange={(e, value) => {
-                                        setTargetActor(value)
-                                        formik.setFieldValue('collaborator_name', value ? value.name : '')
-                                    }}
-                                    onBlur={formik.handleBlur}
-                                    renderInput={(params) => (
-                                        <TextField
-                                            label="Collaborator Name"
-                                            error={formik.touched.collaborator_name && formik.errors.collaborator_name}
-                                            helperText={formik.touched.collaborator_name ? formik.errors.collaborator_name : ''}
-                                            {...params}
-                                        />
-                                    )}
-                                />
+                            <ActorSelector
+                                id='collaborator_name'
+                                name='collaborator_name'
+                                label='Collaborator Name'
+                                sx={{ maxWidth: '350px', color: 'white' }}
+                            />
 
-                                <Button
-                                    sx={{ width: '175px' }}
-                                    variant="contained"
-                                    type='submit'
-                                >
-                                    Search
-                                </Button>
+                            <Button
+                                sx={{ width: '175px' }}
+                                variant="contained"
+                                type='submit'
+                            >
+                                Search
+                            </Button>
 
-                            </Stack>
-                        </Form>
-                    )}
+                        </Stack>
+                    </Form>
+
                 </Formik>
 
             </Paper>
