@@ -14,7 +14,6 @@ export const HomePage = () => {
     const [setSourceActor, setTargetActor] = useAppStore(state => [state.setSourceActor, state.setTargetActor], shallow)
     const setResults = useAppStore(state => state.setResults)
 
-
     const handleSubmit = () => {
         setLoading(true)
         // setTimeout(() => {
@@ -74,6 +73,7 @@ export const HomePage = () => {
                                 name='actor_name'
                                 label="Actor Name"
                                 sx={{ maxWidth: '350px', color: 'white' }}
+                                onChange={(value) => setSourceActor(value)}
                             />
 
                             <ActorSelector
@@ -81,6 +81,7 @@ export const HomePage = () => {
                                 name='collaborator_name'
                                 label='Collaborator Name'
                                 sx={{ maxWidth: '350px', color: 'white' }}
+                                onChange={(value) => setTargetActor(value)}
                             />
 
                             <Button

@@ -26,6 +26,7 @@ export const ActorSelector = (props) => {
     useEffect(() => {
         fetchActors(actorName, (results) => {
             setOptions([...results])
+            console.log('rb', results)
         })
     }, [actorName, fetchActors]);
 
@@ -52,6 +53,7 @@ export const ActorSelector = (props) => {
                     setActorName(value ? value.name : '')
                     setSelectedActor(value)
                     helpers.setValue(value ? value.name : '')
+                    props.onChange(value)
                 }}
                 onInputChange={(e, value) => {
                     setActorName(value)
