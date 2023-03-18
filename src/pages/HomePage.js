@@ -5,7 +5,7 @@ import React from 'react';
 import * as yup from 'yup';
 import { shallow } from 'zustand/shallow';
 // import { mockResults } from "../mocks/mockResults";
-
+import { KevinBaconAlgorithm } from '../alg/KevinBaconAlgorithm';
 import { ActorSelector } from "../components/ActorSelector";
 import { useAppStore } from "../stores/AppStore";
 
@@ -14,17 +14,13 @@ export const HomePage = () => {
     const [setSourceActor, setTargetActor] = useAppStore(state => [state.setSourceActor, state.setTargetActor], shallow)
     const setResults = useAppStore(state => state.setResults)
 
-    const handleSubmit = () => {
+    const handleSubmit = async (values) => {
         setLoading(true)
-        // setTimeout(() => {
-        //     // const searchResults = MovieService.getResults()
-        //     const searchResults = mockResults
-        //     setResults(searchResults)
-        //     setLoading(false)
-        //     setSearched(true)
-        // }, 3000)
-        MovieService.getMovie(60308)
-            .then(r => console.log('rb', r))
+        const algorithm = new KevinBaconAlgorithm(values.actor_id, values.collaborator_id)
+        const searchResults = await algorithm.run()
+        setResults(searchResults)
+        setLoading(false)
+        setSearched(true)
     }
 
     const validationSchema = yup.object({
@@ -65,7 +61,7 @@ export const HomePage = () => {
             <Paper variant="outlined" sx={{ maxWidth: '430px', mt: '50px', backgroundColor: 'rgba(255,255,255,1)' }}>
                 <Formik
                     initialValues={{ actor_name: '', actor_id: '', collaborator_name: '', collaborator_id: '' }}
-                    onSubmit={handleSubmit}
+                    onSubmit={(values) => handleSubmit(values)}
                     validationSchema={validationSchema}
                 >
                     <Form>

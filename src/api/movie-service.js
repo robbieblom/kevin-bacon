@@ -50,7 +50,7 @@ class MovieService {
         }
     }
 
-    async getMovie(movie_id) {
+    async getMovieById(movie_id) {
         try {
             const path = `/movie/${movie_id}?api_key=${API_KEY}&language=en-US`
             const { data } = await this.instance.get(path)

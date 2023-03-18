@@ -32,6 +32,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "@dagrejs/graphlib": "^2.1.12",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.10",
