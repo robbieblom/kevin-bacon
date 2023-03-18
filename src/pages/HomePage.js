@@ -49,7 +49,6 @@ export const HomePage = () => {
         collaborator_id: yup.string(),
     })
 
-
     return (
         <Box sx={{ padding: '25px 50px' }}>
             <Box className='title'>

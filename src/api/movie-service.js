@@ -13,9 +13,7 @@ class MovieService {
         try {
             const path = `/person/${actor_id}/movie_credits?api_key=${API_KEY}&language=en-US`
             const { data } = await this.instance.get(path)
-            // console.log('rb', data?.cast, !!data?.cast)
             return data?.cast ? this.removeDocumentariesFromActorMovies(data.cast) : data?.cast
-            return data?.cast
         } catch (error) {
             console.log(error)
         }
