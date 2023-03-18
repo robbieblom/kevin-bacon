@@ -10,6 +10,19 @@ export const Results = () => {
     const results = useAppStore(state => state.results)
     const setSearched = useAppStore((state) => state.setSearched)
 
+    const groupResults = (results) => {
+        const groupedResults = []
+        const totalGroups = (results.length - 1) / 2
+        for (let group = 1; group <= totalGroups; group++) {
+            const endIndex = (2 * group + 1) - 1 //subtracting 1 gives the index
+            const startIndex = endIndex - 2
+            groupedResults.push(results.slice(startIndex, endIndex + 1)) //adding 1 b/c of exclusive end
+        }
+        return groupedResults
+    }
+
+    const groupedResults = groupResults(results)
+
     const handleNewSearch = () => {
         setSearched(false)
     }
@@ -28,7 +41,7 @@ export const Results = () => {
                     sx={{ justifyContent: 'center', alignItems: 'center' }}
                     spacing={8}
                 >
-                    {results.map(connection => (
+                    {groupedResults.map(connection => (
                         <ResultCard
                             key={`${connection[0].id}${connection[1].id}${connection[2].id}`}
                             actor={connection[0]}

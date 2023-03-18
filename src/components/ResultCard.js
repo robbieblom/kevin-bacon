@@ -1,6 +1,7 @@
 import { Avatar, Badge, Card, CardContent, Typography } from '@mui/material';
 import { Box, Container, Stack, styled } from '@mui/system';
 import React from 'react';
+import MovieService from '../api/movie-service';
 
 export const ResultCard = ({ actor, movie, collaborator }) => {
     const SmallAvatar = styled(Avatar)(({ theme }) => ({
@@ -22,17 +23,17 @@ export const ResultCard = ({ actor, movie, collaborator }) => {
                                 overlap='rectangular'
                                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                                 badgeContent={
-                                    <SmallAvatar src='./pitt-image.jpg' />
+                                    <SmallAvatar src={MovieService.getPosterImageURL(actor.profile_path)} />
                                 }
                             >
                                 <Badge
                                     overlap='rectangular'
                                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                     badgeContent={
-                                        <SmallAvatar src='./hill-image.jpg' />
+                                        <SmallAvatar src={MovieService.getPosterImageURL(collaborator.profile_path)} />
                                     }
                                 >
-                                    <Avatar src='./moneyball-image.jpg' variant='rounded' sx={{ height: 150, width: 150 }} />
+                                    <Avatar src={MovieService.getPosterImageURL(movie.poster_path)} variant='rounded' sx={{ height: 150, width: 150 }} />
                                 </Badge>
                             </Badge>
                         </Stack>

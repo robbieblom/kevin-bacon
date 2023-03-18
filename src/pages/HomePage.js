@@ -4,25 +4,26 @@ import { Form, Formik } from 'Formik';
 import React from 'react';
 import * as yup from 'yup';
 import { shallow } from 'zustand/shallow';
+import { ActorSelector } from "../components/ActorSelector";
 // import { mockResults } from "../mocks/mockResults";
 import { KevinBaconAlgorithm } from "../alg/KevinBaconAlgorithm";
-import { ActorSelector } from "../components/ActorSelector";
 import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
     const [setLoading, setSearched] = useAppStore((state) => [state.setLoading, state.setSearched], shallow)
     const [setSourceActor, setTargetActor] = useAppStore(state => [state.setSourceActor, state.setTargetActor], shallow)
     const setResults = useAppStore(state => state.setResults)
-    const [currentDegree, setCurrentDegree] = useAppStore(state => [state.currentDegree, state.setCurrentDegree], shallow)
-    const [movieCount, incrementMovieCount] = useAppStore(state => [state.movieCount, state.incrementMovieCount], shallow)
+    const setCurrentDegree = useAppStore(state => state.setCurrentDegree)
+    const incrementMovieCount = useAppStore(state => state.incrementMovieCount)
 
     const handleSubmit = async (values) => {
         setLoading(true)
         const degreeCallback = (degree) => setCurrentDegree(degree)
         const movieCallback = (movie) => incrementMovieCount()
-        const algorithm = new KevinBaconAlgorithm(values.actor_id, values.collaborator_id, degreeCallback = degreeCallback, movieCallback = movieCallback)
+        const algorithm = new KevinBaconAlgorithm(values.actor_id, values.collaborator_id, degreeCallback, movieCallback)
         const searchResults = await algorithm.run()
         setResults(searchResults)
+        // setResults(mockResults)
         setLoading(false)
         setSearched(true)
     }

@@ -1,6 +1,7 @@
 import { Graph } from '@dagrejs/graphlib';
 import MovieService from '../api/movie-service';
 
+
 export class KevinBaconAlgorithm {
     constructor(sourceActor, targetActor, degreeCallback = (degree) => { }, movieCallback = (movie) => { }) {
         this.source_actor = sourceActor
@@ -21,7 +22,7 @@ export class KevinBaconAlgorithm {
 
         for (let degree = 1; degree <= maxDegree; degree++) {
             const matchFound = await this.checkLayer(tree)
-            this.degree_callback(degree)
+            // this.degree_callback(degree)
             if (matchFound) {
                 const path = this.getPathToRoot(tree, target_actor)
                 return path
@@ -35,7 +36,7 @@ export class KevinBaconAlgorithm {
         for (let actorLeaf of tree.sinks()) {
             const movies = await this.getMoviesForActor(actorLeaf)
             for (let movie of movies) {
-                this.movie_callback(movie)
+                // this.movie_callback(movie)
                 tree.setNode(movie)
                 tree.setEdge(actorLeaf, movie)
                 const cast = await this.getCastForMovie(movie)
