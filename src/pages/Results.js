@@ -9,6 +9,7 @@ export const Results = () => {
     const [sourceActor, targetActor] = useAppStore((state) => [state.sourceActor, state.targetActor], shallow)
     const results = useAppStore(state => state.results)
     const setSearched = useAppStore((state) => state.setSearched)
+    const [setMovieCount, setCurrentDegree] = useAppStore(state => [state.setMovieCount, state.setCurrentDegree], shallow)
 
     const groupResults = (results) => {
         const groupedResults = []
@@ -25,6 +26,8 @@ export const Results = () => {
 
     const handleNewSearch = () => {
         setSearched(false)
+        setMovieCount(0)
+        setCurrentDegree(0)
     }
 
     const hasResultsView = (

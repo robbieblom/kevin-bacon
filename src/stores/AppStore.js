@@ -9,30 +9,30 @@ export const useAppStore = create((set) => ({
     setLoading: (l) => {
         set({ loading: l })
     },
-    currentDegree: 0,
+    currentDegree: 1,
     setCurrentDegree: (d) => {
         set({ currentDegree: d })
     },
     movieCount: 0,
     incrementMovieCount: () => {
-        set((state) => { movieCount: state.movieCount + 1 })
+        set((state) => ({ movieCount: state.movieCount + 1 }))
+    },
+    setMovieCount: (mc) => {
+        set({ movieCount: mc })
     },
     searched: false,
     setSearched: (s) => {
         set({ searched: s })
     },
     sourceActor: null,
-    // sourceActor: bradPitt,
     setSourceActor: (sa) => {
         set({ sourceActor: sa })
     },
     targetActor: null,
-    // targetActor: jonahHill,
     setTargetActor: (ta) => {
         set({ targetActor: ta })
     },
     results: [],
-    // results: mockResults,
     setResults: (r) => {
         set({ results: r })
     }

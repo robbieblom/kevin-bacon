@@ -13,6 +13,8 @@ class MovieService {
         try {
             const path = `/person/${actor_id}/movie_credits?api_key=${API_KEY}&language=en-US`
             const { data } = await this.instance.get(path)
+            // console.log('rb', data?.cast, !!data?.cast)
+            return data?.cast ? this.removeDocumentariesFromActorMovies(data.cast) : data?.cast
             return data?.cast
         } catch (error) {
             console.log(error)
@@ -65,6 +67,26 @@ class MovieService {
         return posterImageBaseURL + profile_path
     }
 
+    async getGenres() {
+        try {
+            const path = `/genre/movie/list?api_key=${API_KEY}&language=en-US`
+            const { data } = await this.instance.get(path)
+            return data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    removeDocumentariesFromActorMovies(movies) {
+        return movies.filter(m => {
+            if (m?.genre_ids
+                && m.genre_ids.length == 1
+                && m.genre_ids[0] == 99) { //99 is id for documentary
+                return false
+            }
+            return true
+        })
+    }
 }
 
 export default new MovieService()
