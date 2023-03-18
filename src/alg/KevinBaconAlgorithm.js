@@ -2,9 +2,11 @@ import { Graph } from '@dagrejs/graphlib';
 import MovieService from '../api/movie-service';
 
 export class KevinBaconAlgorithm {
-    constructor(sourceActor, targetActor) {
+    constructor(sourceActor, targetActor, degreeCallback = (degree) => { }, movieCallback = (movie) => { }) {
         this.source_actor = sourceActor
         this.target_actor = targetActor
+        this.degree_callback = degreeCallback
+        this.movie_callback = movieCallback
     }
 
     async run() {
@@ -13,12 +15,13 @@ export class KevinBaconAlgorithm {
         return formattedConnectionPath
     }
 
-    async isConnectedToActor(source_actor, target_actor, maxDegree = 2) {
+    async isConnectedToActor(source_actor, target_actor, maxDegree = 3) {
         const tree = new Graph({ directed: true, compound: true, multigraph: false });
         tree.setNode(source_actor)
 
         for (let degree = 1; degree <= maxDegree; degree++) {
             const matchFound = await this.checkLayer(tree)
+            this.degree_callback(degree)
             if (matchFound) {
                 const path = this.getPathToRoot(tree, target_actor)
                 return path
@@ -32,6 +35,7 @@ export class KevinBaconAlgorithm {
         for (let actorLeaf of tree.sinks()) {
             const movies = await this.getMoviesForActor(actorLeaf)
             for (let movie of movies) {
+                this.movie_callback(movie)
                 tree.setNode(movie)
                 tree.setEdge(actorLeaf, movie)
                 const cast = await this.getCastForMovie(movie)
@@ -66,7 +70,7 @@ export class KevinBaconAlgorithm {
             setTimeout(async () => {
                 const castedMovies = await MovieService.getMoviesForActor(actor_id)
                 resolve(castedMovies.map(cm => cm.id))
-            }, 500)
+            }, 250)
         })
     }
 
@@ -76,7 +80,7 @@ export class KevinBaconAlgorithm {
             setTimeout(async () => {
                 const castMembers = await MovieService.getCastForMovie(movie_id)
                 resolve(castMembers.map(cm => cm.id))
-            }, 500)
+            }, 250)
         })
     }
 

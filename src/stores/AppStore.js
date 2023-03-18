@@ -9,6 +9,14 @@ export const useAppStore = create((set) => ({
     setLoading: (l) => {
         set({ loading: l })
     },
+    currentDegree: 0,
+    setCurrentDegree: (d) => {
+        set({ currentDegree: d })
+    },
+    movieCount: 0,
+    incrementMovieCount: () => {
+        set((state) => { movieCount: state.movieCount + 1 })
+    },
     searched: false,
     setSearched: (s) => {
         set({ searched: s })

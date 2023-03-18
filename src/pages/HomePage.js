@@ -5,7 +5,7 @@ import React from 'react';
 import * as yup from 'yup';
 import { shallow } from 'zustand/shallow';
 // import { mockResults } from "../mocks/mockResults";
-import { KevinBaconAlgorithm } from '../alg/KevinBaconAlgorithm';
+import { KevinBaconAlgorithm } from "../alg/KevinBaconAlgorithm";
 import { ActorSelector } from "../components/ActorSelector";
 import { useAppStore } from "../stores/AppStore";
 
@@ -13,10 +13,14 @@ export const HomePage = () => {
     const [setLoading, setSearched] = useAppStore((state) => [state.setLoading, state.setSearched], shallow)
     const [setSourceActor, setTargetActor] = useAppStore(state => [state.setSourceActor, state.setTargetActor], shallow)
     const setResults = useAppStore(state => state.setResults)
+    const [currentDegree, setCurrentDegree] = useAppStore(state => [state.currentDegree, state.setCurrentDegree], shallow)
+    const [movieCount, incrementMovieCount] = useAppStore(state => [state.movieCount, state.incrementMovieCount], shallow)
 
     const handleSubmit = async (values) => {
         setLoading(true)
-        const algorithm = new KevinBaconAlgorithm(values.actor_id, values.collaborator_id)
+        const degreeCallback = (degree) => setCurrentDegree(degree)
+        const movieCallback = (movie) => incrementMovieCount()
+        const algorithm = new KevinBaconAlgorithm(values.actor_id, values.collaborator_id, degreeCallback = degreeCallback, movieCallback = movieCallback)
         const searchResults = await algorithm.run()
         setResults(searchResults)
         setLoading(false)
