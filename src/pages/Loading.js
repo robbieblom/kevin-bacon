@@ -34,6 +34,7 @@ export const Loading = () => {
           justifyContent: "center",
           alignItems: "center",
           height: "100%",
+          padding: "25px 50px 65px 50px",
         }}
       >
         <Stack direction="column" spacing={9}>

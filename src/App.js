@@ -6,6 +6,7 @@ import "./App.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Error } from "./pages/Error";
 import { HomePage } from "./pages/HomePage.js";
+import { GlobalLayout } from "./pages/layout/GlobalLayout";
 import { Loading } from "./pages/Loading.js";
 import { Results } from "./pages/Results.js";
 import { useAppStore } from "./stores/AppStore.js";
@@ -35,7 +36,7 @@ export const App = () => {
     <ErrorBoundary fallback={<Error />}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {getPages()}
+        <GlobalLayout>{getPages()}</GlobalLayout>
       </ThemeProvider>
     </ErrorBoundary>
   );

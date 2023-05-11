@@ -65,7 +65,7 @@ export const HomePage = () => {
   });
 
   return (
-    <Box sx={{ padding: "25px 50px" }}>
+    <Box sx={{ padding: "25px 50px 65px 50px" }}>
       <Box className="title">
         <Typography variant="h1" fontWeight={"bold"}>
           Actor Connections
@@ -89,7 +89,7 @@ export const HomePage = () => {
         variant="outlined"
         sx={{
           maxWidth: "430px",
-          mt: "50px",
+          mt: "30px",
         }}
       >
         <Formik
