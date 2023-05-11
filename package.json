@@ -39,6 +39,7 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "@bytetheoryinnovations/bytetheory-ui-library": "latest",
     "@dagrejs/graphlib": "^2.1.12",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

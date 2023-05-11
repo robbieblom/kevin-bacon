@@ -1,8 +1,10 @@
+import {
+  Footer,
+  NavModule,
+} from "@bytetheoryinnovations/bytetheory-ui-library";
 import { Container } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
-import { Footer } from "../../components/Footer/Footer";
-import NavModule from "../../components/Navigation/NavModule";
 
 export const GlobalLayout = ({ children }) => {
   return (
