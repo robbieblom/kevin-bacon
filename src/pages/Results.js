@@ -1,96 +1,110 @@
-import { Button, Typography } from '@mui/material'
-import { Stack } from '@mui/system'
-import React from 'react'
-import { shallow } from "zustand/shallow"
-import { ResultCard } from '../components/ResultCard'
-import { useAppStore } from "../stores/AppStore"
+import { Button, Stack, Typography } from "@mui/material";
+import React from "react";
+import { shallow } from "zustand/shallow";
+import { ResultCard } from "../components/ResultCard";
+import { useAppStore } from "../stores/AppStore";
 
 export const Results = () => {
-    const [sourceActor, targetActor] = useAppStore((state) => [state.sourceActor, state.targetActor], shallow)
-    const results = useAppStore(state => state.results)
-    const setSearched = useAppStore((state) => state.setSearched)
-    const [setMovieCount, setCurrentDegree] = useAppStore(state => [state.setMovieCount, state.setCurrentDegree], shallow)
+  const [sourceActor, targetActor] = useAppStore(
+    (state) => [state.sourceActor, state.targetActor],
+    shallow
+  );
+  const results = useAppStore((state) => state.results);
+  const setSearched = useAppStore((state) => state.setSearched);
+  const [setMovieCount, setCurrentDegree] = useAppStore(
+    (state) => [state.setMovieCount, state.setCurrentDegree],
+    shallow
+  );
 
-    const groupResults = (results) => {
-        const groupedResults = []
-        const totalGroups = (results.length - 1) / 2
-        for (let group = 1; group <= totalGroups; group++) {
-            const endIndex = (2 * group + 1) - 1 //subtracting 1 gives the index
-            const startIndex = endIndex - 2
-            groupedResults.push(results.slice(startIndex, endIndex + 1)) //adding 1 b/c of exclusive end
-        }
-        return groupedResults
+  const groupResults = (results) => {
+    const groupedResults = [];
+    const totalGroups = (results.length - 1) / 2;
+    for (let group = 1; group <= totalGroups; group++) {
+      const endIndex = 2 * group + 1 - 1; //subtracting 1 gives the index
+      const startIndex = endIndex - 2;
+      groupedResults.push(results.slice(startIndex, endIndex + 1)); //adding 1 b/c of exclusive end
     }
+    return groupedResults;
+  };
 
-    const groupedResults = groupResults(results)
+  const groupedResults = groupResults(results);
 
-    const handleNewSearch = () => {
-        setSearched(false)
-        setMovieCount(0)
-        setCurrentDegree(0)
-    }
+  const handleNewSearch = () => {
+    setSearched(false);
+    setMovieCount(0);
+    setCurrentDegree(0);
+  };
 
-    const hasResultsView = (
-        <>
-            <Stack direction='column' spacing={0} sx={{ boxSizing: 'border-box', padding: '55px 50px', height: '100%', justifyContent: 'space-between' }}>
-                <Stack className='summary' direction='row'>
-                    <Typography variant='h4' sx={{ fontWeight: 'bold', color: 'white' }}>
-                        {sourceActor.name} and {targetActor.name} are connected!
-                    </Typography>
-                </Stack>
+  const hasResultsView = (
+    <>
+      <Stack
+        direction="column"
+        spacing={0}
+        sx={{
+          boxSizing: "border-box",
+          padding: "55px 50px",
+          height: "100%",
+          justifyContent: "space-between",
+        }}
+      >
+        <Stack className="summary" direction="row">
+          <Typography variant="h4" fontWeight={"bold"}>
+            {sourceActor.name} and {targetActor.name} are connected!
+          </Typography>
+        </Stack>
 
-                <Stack
-                    direction='row'
-                    sx={{ justifyContent: 'center', alignItems: 'center' }}
-                    spacing={8}
-                >
-                    {groupedResults.map(connection => (
-                        <ResultCard
-                            key={`${connection[0].id}${connection[1].id}${connection[2].id}`}
-                            actor={connection[0]}
-                            movie={connection[1]}
-                            collaborator={connection[2]} />
-                    ))}
-                </Stack>
+        <Stack
+          direction="row"
+          sx={{ justifyContent: "center", alignItems: "center" }}
+          spacing={8}
+        >
+          {groupedResults.map((connection) => (
+            <ResultCard
+              key={`${connection[0].id}${connection[1].id}${connection[2].id}`}
+              actor={connection[0]}
+              movie={connection[1]}
+              collaborator={connection[2]}
+            />
+          ))}
+        </Stack>
 
-                <Stack direction='row' sx={{ justifyContent: 'right' }}>
-                    <Button
-                        variant="contained"
-                        sx={{ width: '175px' }}
-                        onClick={handleNewSearch}
-                    >
-                        Back to Search
-                    </Button>
-                </Stack>
+        <Stack direction="row" sx={{ justifyContent: "right" }}>
+          <Button
+            variant="outlined"
+            sx={{ width: "175px" }}
+            onClick={handleNewSearch}
+          >
+            Back to Search
+          </Button>
+        </Stack>
+      </Stack>
+    </>
+  );
 
-            </Stack>
+  const noResultsView = (
+    <>
+      <Stack
+        direction="column"
+        spacing={4}
+        sx={{ height: "100%", justifyContent: "center", alignItems: "center" }}
+      >
+        <Typography variant="h4">
+          {sourceActor.name} and {targetActor.name} are not connected.
+        </Typography>
+        <Button
+          variant="outlined"
+          sx={{ width: "175px" }}
+          onClick={handleNewSearch}
+        >
+          Back to Search
+        </Button>
+      </Stack>
+    </>
+  );
 
-        </>
-    )
-
-    const noResultsView = (
-        <>
-            <Stack direction='column' spacing={4} sx={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                <Typography variant='h4' sx={{ fontWeight: 'bold', color: 'white' }}>
-                    {sourceActor.name} and {targetActor.name} are not connected.
-                </Typography>
-                <Button
-                    variant="contained"
-                    sx={{ width: '175px' }}
-                    onClick={handleNewSearch}
-                >
-                    Back to Search
-                </Button>
-            </Stack>
-        </>
-    )
-
-    if (results.length > 0) {
-        return hasResultsView
-    } else {
-        return noResultsView
-    }
-
-}
-
-
+  if (results.length > 0) {
+    return hasResultsView;
+  } else {
+    return noResultsView;
+  }
+};

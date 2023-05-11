@@ -16,17 +16,17 @@ export class KevinBaconAlgorithm {
         return formattedConnectionPath
     }
 
-    async isConnectedToActor(source_actor, target_actor, maxDegree = 3) {
+    async isConnectedToActor(source_actor, target_actor, maxDegree = 2) {
         const tree = new Graph({ directed: true, compound: true, multigraph: false });
         tree.setNode(source_actor)
 
         for (let degree = 1; degree <= maxDegree; degree++) {
             this.degree_callback(degree)
             const matchFound = await this.checkLayer(tree)
-            if (matchFound) {
-                const path = this.getPathToRoot(tree, target_actor)
-                return path
-            }
+            // if (matchFound) {
+            //     const path = this.getPathToRoot(tree, target_actor)
+            //     return path
+            // }
         }
 
         return []
@@ -44,9 +44,9 @@ export class KevinBaconAlgorithm {
                     if (cast_member != this.source_actor) {
                         tree.setNode(cast_member)
                         tree.setEdge(movie, cast_member)
-                    }
-                    if (cast_member == this.target_actor) {
-                        return true
+                        // }
+                        // if (cast_member == this.target_actor) {
+                        //     return true
                     }
                 }
             }
