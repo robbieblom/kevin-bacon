@@ -1,20 +1,18 @@
-import { CssBaseline } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  ByteTheoryTheme,
+  GlobalLayout,
+} from "@bytetheoryinnovations/bytetheory-ui-library";
 import React from "react";
 import { shallow } from "zustand/shallow";
 import "./App.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Error } from "./pages/Error";
 import { HomePage } from "./pages/HomePage.js";
-import { GlobalLayout } from "./pages/layout/GlobalLayout";
 import { Loading } from "./pages/Loading.js";
 import { Results } from "./pages/Results.js";
 import { useAppStore } from "./stores/AppStore.js";
-import { themeOptions } from "./theme/theme-options";
 
 export const App = () => {
-  const theme = createTheme(themeOptions());
-  console.log(theme);
   const [loading, searched] = useAppStore(
     (state) => [state.loading, state.searched],
     shallow
@@ -34,10 +32,9 @@ export const App = () => {
 
   return (
     <ErrorBoundary fallback={<Error />}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <ByteTheoryTheme>
         <GlobalLayout>{getPages()}</GlobalLayout>
-      </ThemeProvider>
+      </ByteTheoryTheme>
     </ErrorBoundary>
   );
 };
