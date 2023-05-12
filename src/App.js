@@ -32,7 +32,7 @@ export const App = () => {
 
   return (
     <ErrorBoundary fallback={<Error />}>
-      <ByteTheoryTheme>
+      <ByteTheoryTheme mode={"dark"} rebaseStyles>
         <GlobalLayout>{getPages()}</GlobalLayout>
       </ByteTheoryTheme>
     </ErrorBoundary>

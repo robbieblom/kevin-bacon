@@ -7,6 +7,7 @@ import { shallow } from "zustand/shallow";
 import { KevinBaconAlgorithm } from "../alg/KevinBaconAlgorithm";
 import { ActorSelector } from "../components/ActorSelector";
 // import { mockResults } from "../mocks/mockResults";
+import { ByteTheoryTheme } from "@bytetheoryinnovations/bytetheory-ui-library";
 import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
@@ -72,6 +73,7 @@ export const HomePage = () => {
         </Typography>
         <Typography
           fontWeight={"bold"}
+          color={"text.secondary"}
           sx={{
             lineHeight: 2.3,
             mt: "10px",
@@ -85,48 +87,54 @@ export const HomePage = () => {
         </Typography>
       </Box>
 
-      <Paper
-        variant="outlined"
-        sx={{
-          maxWidth: "430px",
-          mt: "30px",
-        }}
-      >
-        <Formik
-          initialValues={{
-            actor_name: "",
-            actor_id: "",
-            collaborator_name: "",
-            collaborator_id: "",
+      <ByteTheoryTheme mode={"light"}>
+        <Paper
+          variant="outlined"
+          sx={{
+            maxWidth: "430px",
+            mt: "30px",
           }}
-          onSubmit={(values) => handleSubmit(values)}
-          validationSchema={validationSchema}
         >
-          <Form>
-            <Stack className="form" spacing={2} sx={{ padding: "40px" }}>
-              <ActorSelector
-                id="actor_name"
-                name="actor_name"
-                label="Actor Name"
-                sx={{ maxWidth: "350px", color: "white" }}
-                onChange={(value) => setSourceActor(value)}
-              />
+          <Formik
+            initialValues={{
+              actor_name: "",
+              actor_id: "",
+              collaborator_name: "",
+              collaborator_id: "",
+            }}
+            onSubmit={(values) => handleSubmit(values)}
+            validationSchema={validationSchema}
+          >
+            <Form>
+              <Stack className="form" spacing={2} sx={{ padding: "40px" }}>
+                <ActorSelector
+                  id="actor_name"
+                  name="actor_name"
+                  label="Actor Name"
+                  sx={{ maxWidth: "350px", color: "white" }}
+                  onChange={(value) => setSourceActor(value)}
+                />
 
-              <ActorSelector
-                id="collaborator_name"
-                name="collaborator_name"
-                label="Collaborator Name"
-                sx={{ maxWidth: "350px", color: "white" }}
-                onChange={(value) => setTargetActor(value)}
-              />
+                <ActorSelector
+                  id="collaborator_name"
+                  name="collaborator_name"
+                  label="Collaborator Name"
+                  sx={{ maxWidth: "350px", color: "white" }}
+                  onChange={(value) => setTargetActor(value)}
+                />
 
-              <Button sx={{ width: "175px" }} variant="outlined" type="submit">
-                Search
-              </Button>
-            </Stack>
-          </Form>
-        </Formik>
-      </Paper>
+                <Button
+                  sx={{ width: "175px" }}
+                  variant="contained"
+                  type="submit"
+                >
+                  Search
+                </Button>
+              </Stack>
+            </Form>
+          </Formik>
+        </Paper>
+      </ByteTheoryTheme>
     </Box>
   );
 };
