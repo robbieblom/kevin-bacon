@@ -1,4 +1,5 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2";
 import React from "react";
 import { shallow } from "zustand/shallow";
 import { ResultCard } from "../components/ResultCard";
@@ -37,47 +38,45 @@ export const Results = () => {
 
   const hasResultsView = (
     <>
-      <Stack
+      <Grid2
+        container
         direction="column"
-        spacing={0}
+        spacing={9}
         sx={{
-          boxSizing: "border-box",
-          padding: "55px 50px",
-          height: "100%",
-          justifyContent: "space-between",
+          padding: "35px 50px",
         }}
       >
-        <Stack className="summary" direction="row">
-          <Typography variant="h4" fontWeight={"bold"}>
-            {sourceActor.name} and {targetActor.name} are connected!
-          </Typography>
-        </Stack>
+        <Grid2>
+          <Stack spacing={3}>
+            <Typography variant="h4" fontWeight={"bold"}>
+              {sourceActor.name} and {targetActor.name} are connected!
+            </Typography>
+            <Box>
+              <Button variant="outlined" size="xl" onClick={handleNewSearch}>
+                Search again
+              </Button>
+            </Box>
+          </Stack>
+        </Grid2>
 
-        <Stack
-          direction="row"
-          sx={{ justifyContent: "center", alignItems: "center" }}
-          spacing={8}
-        >
-          {groupedResults.map((connection) => (
-            <ResultCard
-              key={`${connection[0].id}${connection[1].id}${connection[2].id}`}
-              actor={connection[0]}
-              movie={connection[1]}
-              collaborator={connection[2]}
-            />
-          ))}
-        </Stack>
-
-        <Stack direction="row" sx={{ justifyContent: "right" }}>
-          <Button
-            variant="outlined"
-            sx={{ width: "175px" }}
-            onClick={handleNewSearch}
+        <Grid2>
+          <Stack
+            direction="row"
+            justifyContent={"center"}
+            alignItems={"center"}
+            spacing={8}
           >
-            Back to Search
-          </Button>
-        </Stack>
-      </Stack>
+            {groupedResults.map((connection) => (
+              <ResultCard
+                key={`${connection[0].id}${connection[1].id}${connection[2].id}`}
+                actor={connection[0]}
+                movie={connection[1]}
+                collaborator={connection[2]}
+              />
+            ))}
+          </Stack>
+        </Grid2>
+      </Grid2>
     </>
   );
 
@@ -91,11 +90,7 @@ export const Results = () => {
         <Typography variant="h4">
           {sourceActor.name} and {targetActor.name} are not connected.
         </Typography>
-        <Button
-          variant="outlined"
-          sx={{ width: "175px" }}
-          onClick={handleNewSearch}
-        >
+        <Button variant="outlined" size="xl" onClick={handleNewSearch}>
           Back to Search
         </Button>
       </Stack>
