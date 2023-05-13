@@ -1,5 +1,4 @@
 import { CircularProgress, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
 import { useAppStore } from "../stores/AppStore";
 
@@ -28,20 +27,16 @@ export const Loading = () => {
   };
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%",
-          padding: "25px 50px 65px 50px",
-        }}
+      <Stack
+        direction="column"
+        spacing={9}
+        alignItems={"center"}
+        justifyContent={"center"}
+        sx={{ height: "100%" }}
       >
-        <Stack direction="column" spacing={9}>
-          <CircularProgress size={150} sx={{ alignSelf: "center" }} />
-          {getLoadingText()}
-        </Stack>
-      </Box>
+        <CircularProgress size={150} />
+        {getLoadingText()}
+      </Stack>
     </>
   );
 };
