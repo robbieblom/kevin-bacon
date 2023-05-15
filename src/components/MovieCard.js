@@ -1,6 +1,6 @@
 import { ByteTheoryTheme } from "@bytetheoryinnovations/bytetheory-ui-library";
-import { Avatar, Card, CardContent, Typography } from "@mui/material";
-import { Container, Stack } from "@mui/system";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Container } from "@mui/system";
 import React from "react";
 import MovieService from "../api/movie-service";
 
@@ -9,22 +9,15 @@ export const MovieCard = ({ actor, movieDetails, collaborator }) => {
   return (
     <>
       <ByteTheoryTheme mode={"light"}>
-        <Card sx={{ maxWidth: 220 }}>
+        <Card sx={{ width: 220, minWidth: 220, height: 300 }}>
+          <CardMedia
+            component={"img"}
+            height="194"
+            image={MovieService.getPosterImageURL(movieDetails.poster_path)}
+            sx={{ objectFit: "contain" }}
+          />
           <CardContent style={{ padding: "10px" }}>
-            <Stack
-              direction="column"
-              spacing={0.5}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Avatar
-                src={MovieService.getPosterImageURL(movieDetails.poster_path)}
-                variant="rounded"
-                sx={{ height: 150, width: 150 }}
-              />
-            </Stack>
-
-            <Container style={{ padding: "30px 0px 0px 0px" }}>
+            <Container style={{ padding: "0px" }}>
               <Typography>
                 <span style={{ fontWeight: "bold" }}>{actor.name}</span>{" "}
                 collaborated with

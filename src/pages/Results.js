@@ -45,13 +45,18 @@ export const Results = () => {
       <Grid2
         container
         direction="column"
-        spacing={9}
+        spacing={4}
         sx={{
-          padding: "35px 50px",
+          padding: "15px 50px 0px 50px",
         }}
       >
         <Grid2>
-          <Stack spacing={3}>
+          <Stack
+            spacing={1}
+            direction={"row"}
+            justifyContent={"space-between"}
+            flexWrap={"nowrap"}
+          >
             <Typography variant="h4" fontWeight={"bold"}>
               {getSummaryText()}
             </Typography>
