@@ -5,10 +5,9 @@ import { Form, Formik } from "Formik";
 import React from "react";
 import * as yup from "yup";
 import { shallow } from "zustand/shallow";
-import { ActorSelector } from "../components/ActorSelector";
-import { mockSourceResults, mockTargetResults } from "../mocks/mockResults";
-// import { mockResults } from "../mocks/mockResults";
 import { TopNMoviesSearch } from "../alg/TopNMoviesSearch";
+import { ActorSelector } from "../components/ActorSelector";
+// import { mockSourceResults, mockTargetResults } from "../mocks/mockResults";
 import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
@@ -34,19 +33,18 @@ export const HomePage = () => {
 
   const handleSubmit = async (values) => {
     setLoading(true);
-    // const sourceActorResults = await performSearch(
-    //   values.actor_id,
-    //   values.collaborator_id
-    // );
-    // console.log(sourceActorResults);
-    // const targetActorResults = await performSearch(
-    //   values.collaborator_id,
-    //   values.actor_id
-    // );
-    // setSourceActorResults(sourceActorResults);
-    // setTargetActorResults(targetActorResults);
-    setSourceActorResults(mockSourceResults);
-    setTargetActorResults(mockTargetResults);
+    const sourceActorResults = await performSearch(
+      values.actor_id,
+      values.collaborator_id
+    );
+    const targetActorResults = await performSearch(
+      values.collaborator_id,
+      values.actor_id
+    );
+    setSourceActorResults(sourceActorResults);
+    setTargetActorResults(targetActorResults);
+    // setSourceActorResults(mockSourceResults);
+    // setTargetActorResults(mockTargetResults);
     setLoading(false);
     setSearched(true);
   };

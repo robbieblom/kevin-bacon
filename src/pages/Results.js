@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import React from "react";
 import { shallow } from "zustand/shallow";
@@ -54,12 +54,12 @@ export const Results = () => {
           <Stack
             spacing={1}
             direction={"row"}
-            justifyContent={"space-between"}
+            justifyContent={"flex-end"}
             flexWrap={"nowrap"}
           >
-            <Typography variant="h4" fontWeight={"bold"}>
+            {/* <Typography variant="h4" fontWeight={"bold"}>
               {getSummaryText()}
-            </Typography>
+            </Typography> */}
             <Box>
               <Button variant="outlined" size="xl" onClick={handleNewSearch}>
                 Search again
@@ -69,11 +69,19 @@ export const Results = () => {
         </Grid2>
 
         <Grid2>
-          <MovieList actor={sourceActor} movies={sourceActorResults} />
+          <MovieList
+            actor={sourceActor}
+            movies={sourceActorResults}
+            collaborator={targetActor}
+          />
         </Grid2>
 
         <Grid2>
-          <MovieList actor={targetActor} movies={targetActorResults} />
+          <MovieList
+            actor={targetActor}
+            movies={targetActorResults}
+            collaborator={sourceActor}
+          />
         </Grid2>
       </Grid2>
     </>

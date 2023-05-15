@@ -5,7 +5,7 @@ import React from "react";
 import { _hexToRgb } from "../utils/utils";
 import { MovieCard } from "./MovieCard";
 
-export const MovieList = ({ actor, movies }) => {
+export const MovieList = ({ actor, movies, collaborator }) => {
   const theme = useTheme();
 
   const backgroundColorInRGB = _hexToRgb(theme.palette.background.default);
@@ -18,29 +18,37 @@ export const MovieList = ({ actor, movies }) => {
           elevation={5}
           sx={{
             backgroundColor: `rgba(${r}, ${g}, ${b}, 0.1)`,
-            maxHeight: "445px",
+            height: "445px",
             overflow: "auto",
           }}
         >
           <Stack
             direction={"column"}
             spacing={2}
-            sx={{ padding: "10px 20px 20px 20px" }}
+            sx={{ padding: "10px 20px 20px 20px", height: "100%" }}
             flexWrap={"wrap"}
           >
             <Box>
-              <Typography variant="h4">{actor.name}</Typography>
+              <Typography variant="h4">{`${actor.name}'s popular movies where ${collaborator.name} costarred`}</Typography>
             </Box>
             <Grid2 container alignItems={"center"} spacing={4}>
-              {movies.map((movie, index) => (
-                <Grid2 key={index}>
-                  <MovieCard
-                    actor={actor}
-                    movieDetails={movie.movieDetails}
-                    collaborator={movie.targetAsCastMember}
-                  />
+              {movies.length > 0 ? (
+                movies.map((movie, index) => (
+                  <Grid2 key={index}>
+                    <MovieCard
+                      actor={actor}
+                      movieDetails={movie.movieDetails}
+                      collaborator={movie.targetAsCastMember}
+                    />
+                  </Grid2>
+                ))
+              ) : (
+                <Grid2 flexGrow={1} sx={{ height: "100%" }}>
+                  <Typography variant="body1" textAlign={"center"}>
+                    No collaborations on top movies
+                  </Typography>
                 </Grid2>
-              ))}
+              )}
             </Grid2>
           </Stack>
         </Paper>

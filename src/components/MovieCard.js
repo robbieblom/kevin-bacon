@@ -5,7 +5,6 @@ import React from "react";
 import MovieService from "../api/movie-service";
 
 export const MovieCard = ({ actor, movieDetails, collaborator }) => {
-  console.log("rb", actor, movieDetails);
   return (
     <>
       <ByteTheoryTheme mode={"light"}>
