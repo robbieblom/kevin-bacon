@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { shallow } from "zustand/shallow";
 import { KevinBaconAlgorithm } from "../alg/KevinBaconAlgorithm";
 import { ActorSelector } from "../components/ActorSelector";
-import { mockResults } from "../mocks/mockResults";
+// import { mockResults } from "../mocks/mockResults";
 import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
@@ -33,9 +33,9 @@ export const HomePage = () => {
       degreeCallback,
       movieCallback
     );
-    // const searchResults = await algorithm.run();
-    // setResults(searchResults);
-    setResults(mockResults);
+    const searchResults = await algorithm.run();
+    setResults(searchResults);
+    // setResults(mockResults);
     setLoading(false);
     setSearched(true);
   };
