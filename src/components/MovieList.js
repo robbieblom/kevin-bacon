@@ -1,5 +1,5 @@
 import { ByteTheoryTheme } from "@bytetheoryinnovations/bytetheory-ui-library";
-import { Box, Paper, Stack, Typography, useTheme } from "@mui/material";
+import { Paper, Stack, Typography, useTheme } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 import { _hexToRgb } from "../utils/utils";
@@ -25,12 +25,12 @@ export const MovieList = ({ actor, movies, collaborator }) => {
           <Stack
             direction={"column"}
             spacing={2}
-            sx={{ padding: "10px 20px 20px 20px", height: "100%" }}
+            sx={{ padding: "30px", height: "100%" }}
             flexWrap={"wrap"}
           >
-            <Box>
+            {/* <Box>
               <Typography variant="h4">{`${actor.name}'s popular movies where ${collaborator.name} costarred`}</Typography>
-            </Box>
+            </Box> */}
             <Grid2 container alignItems={"center"} spacing={4}>
               {movies.length > 0 ? (
                 movies.map((movie, index) => (

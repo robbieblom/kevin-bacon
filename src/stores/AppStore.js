@@ -1,5 +1,5 @@
 import { create } from "zustand";
-// import { mockSourceResults, mockTargetResults } from "../mocks/mockResults";
+// import { mockSourceResults } from "../mocks/mockResults";
 
 export const useAppStore = create((set) => ({
   loading: false,

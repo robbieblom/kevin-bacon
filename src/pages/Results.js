@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import React from "react";
 import { shallow } from "zustand/shallow";
@@ -28,15 +28,13 @@ export const Results = () => {
 
   const getSummaryText = () => {
     const sourceHasResults = Boolean(sourceActorResults.length);
-    const targetHasResults = Boolean(targetActorResults.length);
-    if (sourceHasResults && targetHasResults) {
-      return `${sourceActor.name} and ${targetActor.name} are in each other's Top 50`;
-    } else if (sourceHasResults && !targetHasResults) {
+    // const targetHasResults = Boolean(targetActorResults.length);
+    // if (sourceHasResults && targetHasResults) {
+    // return `${sourceActor.name} and ${targetActor.name} are in each other's Top 50`;
+    if (sourceHasResults) {
       return `${targetActor.name} is in ${sourceActor.name}'s Top 50`;
-    } else if (!sourceHasResults && targetHasResults) {
-      return `${sourceActor.name} is in ${targetActor.name}'s Top 50`;
     } else {
-      return `${sourceActor.name} and ${targetActor.name} are not in each other's Top 50`;
+      return `${targetActor.name} is not in ${sourceActor.name}'s Top 50`;
     }
   };
 
@@ -54,12 +52,12 @@ export const Results = () => {
           <Stack
             spacing={1}
             direction={"row"}
-            justifyContent={"flex-end"}
+            justifyContent={"space-between"}
             flexWrap={"nowrap"}
           >
-            {/* <Typography variant="h4" fontWeight={"bold"}>
+            <Typography variant="h4" fontWeight={"bold"}>
               {getSummaryText()}
-            </Typography> */}
+            </Typography>
             <Box>
               <Button variant="outlined" size="xl" onClick={handleNewSearch}>
                 Search again
@@ -76,13 +74,13 @@ export const Results = () => {
           />
         </Grid2>
 
-        <Grid2>
+        {/* <Grid2>
           <MovieList
             actor={targetActor}
             movies={targetActorResults}
             collaborator={sourceActor}
           />
-        </Grid2>
+        </Grid2> */}
       </Grid2>
     </>
   );

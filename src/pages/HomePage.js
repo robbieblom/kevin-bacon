@@ -7,7 +7,6 @@ import * as yup from "yup";
 import { shallow } from "zustand/shallow";
 import { TopNMoviesSearch } from "../alg/TopNMoviesSearch";
 import { ActorSelector } from "../components/ActorSelector";
-// import { mockSourceResults, mockTargetResults } from "../mocks/mockResults";
 import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
@@ -37,12 +36,12 @@ export const HomePage = () => {
       values.actor_id,
       values.collaborator_id
     );
-    const targetActorResults = await performSearch(
-      values.collaborator_id,
-      values.actor_id
-    );
+    // const targetActorResults = await performSearch(
+    //   values.collaborator_id,
+    //   values.actor_id
+    // );
     setSourceActorResults(sourceActorResults);
-    setTargetActorResults(targetActorResults);
+    // setTargetActorResults(targetActorResults);
     // setSourceActorResults(mockSourceResults);
     // setTargetActorResults(mockTargetResults);
     setLoading(false);
