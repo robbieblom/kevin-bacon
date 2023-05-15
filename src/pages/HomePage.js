@@ -5,9 +5,10 @@ import { Form, Formik } from "Formik";
 import React from "react";
 import * as yup from "yup";
 import { shallow } from "zustand/shallow";
-import { KevinBaconAlgorithm } from "../alg/KevinBaconAlgorithm";
 import { ActorSelector } from "../components/ActorSelector";
+import { mockSourceResults, mockTargetResults } from "../mocks/mockResults";
 // import { mockResults } from "../mocks/mockResults";
+import { TopNMoviesSearch } from "../alg/TopNMoviesSearch";
 import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
@@ -19,23 +20,33 @@ export const HomePage = () => {
     (state) => [state.setSourceActor, state.setTargetActor],
     shallow
   );
-  const setResults = useAppStore((state) => state.setResults);
-  const setCurrentDegree = useAppStore((state) => state.setCurrentDegree);
+  const [setSourceActorResults, setTargetActorResults] = useAppStore(
+    (state) => [state.setSourceActorResults, state.setTargetActorResults]
+  );
   const incrementMovieCount = useAppStore((state) => state.incrementMovieCount);
+
+  const performSearch = async (source_id, target_id) => {
+    const movieCallback = (movie) => incrementMovieCount();
+    const search = new TopNMoviesSearch(source_id, target_id, movieCallback);
+    const results = await search.run();
+    return results;
+  };
 
   const handleSubmit = async (values) => {
     setLoading(true);
-    const degreeCallback = (degree) => setCurrentDegree(degree);
-    const movieCallback = (movie) => incrementMovieCount();
-    const algorithm = new KevinBaconAlgorithm(
-      values.actor_id,
-      values.collaborator_id,
-      degreeCallback,
-      movieCallback
-    );
-    const searchResults = await algorithm.run();
-    setResults(searchResults);
-    // setResults(mockResults);
+    // const sourceActorResults = await performSearch(
+    //   values.actor_id,
+    //   values.collaborator_id
+    // );
+    // console.log(sourceActorResults);
+    // const targetActorResults = await performSearch(
+    //   values.collaborator_id,
+    //   values.actor_id
+    // );
+    // setSourceActorResults(sourceActorResults);
+    // setTargetActorResults(targetActorResults);
+    setSourceActorResults(mockSourceResults);
+    setTargetActorResults(mockTargetResults);
     setLoading(false);
     setSearched(true);
   };
@@ -69,7 +80,7 @@ export const HomePage = () => {
     <Box sx={{ padding: "25px 50px 65px 50px" }}>
       <Box className="title">
         <Typography variant="h1" fontWeight={"bold"}>
-          Actor Connections
+          Who's In My Top 50?
         </Typography>
         <Typography
           fontWeight={"bold"}
@@ -79,8 +90,7 @@ export const HomePage = () => {
             mt: "10px",
           }}
         >
-          Enter two actors to see if they're connected through the movies
-          they've made.
+          Enter an actor and collaborator to see if
           <br />
           We'll check up to two degrees of separation based on who they've
           worked with.

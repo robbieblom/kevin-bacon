@@ -1,13 +1,10 @@
 import { create } from "zustand";
+import { mockSourceResults, mockTargetResults } from "../mocks/mockResults";
 
 export const useAppStore = create((set) => ({
   loading: false,
   setLoading: (l) => {
     set({ loading: l });
-  },
-  currentDegree: 1,
-  setCurrentDegree: (d) => {
-    set({ currentDegree: d });
   },
   movieCount: 0,
   incrementMovieCount: () => {
@@ -20,19 +17,24 @@ export const useAppStore = create((set) => ({
   setSearched: (s) => {
     set({ searched: s });
   },
-  sourceActor: null,
-  //   sourceActor: { name: "jonah" },
+  // sourceActor: null,
+  sourceActor: { name: "jonah" },
   setSourceActor: (sa) => {
     set({ sourceActor: sa });
   },
-  targetActor: null,
-  //   targetActor: { name: "brad" },
+  // targetActor: null,
+  targetActor: { name: "brad" },
   setTargetActor: (ta) => {
     set({ targetActor: ta });
   },
-  results: [],
-  //   results: mockResults,
-  setResults: (r) => {
-    set({ results: r });
+  // sourceActorResults: [],
+  sourceActorResults: mockSourceResults,
+  setSourceActorResults: (r) => {
+    set({ sourceActorResults: r });
+  },
+  // targetActorResults: [],
+  targetActorResults: mockTargetResults,
+  setTargetActorResults: (r) => {
+    set({ targetActorResults: r });
   },
 }));
