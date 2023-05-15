@@ -36,14 +36,7 @@ export const HomePage = () => {
       values.actor_id,
       values.collaborator_id
     );
-    // const targetActorResults = await performSearch(
-    //   values.collaborator_id,
-    //   values.actor_id
-    // );
     setSourceActorResults(sourceActorResults);
-    // setTargetActorResults(targetActorResults);
-    // setSourceActorResults(mockSourceResults);
-    // setTargetActorResults(mockTargetResults);
     setLoading(false);
     setSearched(true);
   };

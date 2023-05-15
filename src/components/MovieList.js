@@ -28,9 +28,6 @@ export const MovieList = ({ actor, movies, collaborator }) => {
             sx={{ padding: "30px", height: "100%" }}
             flexWrap={"wrap"}
           >
-            {/* <Box>
-              <Typography variant="h4">{`${actor.name}'s popular movies where ${collaborator.name} costarred`}</Typography>
-            </Box> */}
             <Grid2 container alignItems={"center"} spacing={4}>
               {movies.length > 0 ? (
                 movies.map((movie, index) => (

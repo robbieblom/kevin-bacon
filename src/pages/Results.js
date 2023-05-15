@@ -28,9 +28,6 @@ export const Results = () => {
 
   const getSummaryText = () => {
     const sourceHasResults = Boolean(sourceActorResults.length);
-    // const targetHasResults = Boolean(targetActorResults.length);
-    // if (sourceHasResults && targetHasResults) {
-    // return `${sourceActor.name} and ${targetActor.name} are in each other's Top 50`;
     if (sourceHasResults) {
       return `${targetActor.name} is in ${sourceActor.name}'s Top 50`;
     } else {
@@ -73,14 +70,6 @@ export const Results = () => {
             collaborator={targetActor}
           />
         </Grid2>
-
-        {/* <Grid2>
-          <MovieList
-            actor={targetActor}
-            movies={targetActorResults}
-            collaborator={sourceActor}
-          />
-        </Grid2> */}
       </Grid2>
     </>
   );
