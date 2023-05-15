@@ -18,7 +18,7 @@ export const MovieList = ({ actor, movies, collaborator }) => {
           elevation={5}
           sx={{
             backgroundColor: `rgba(${r}, ${g}, ${b}, 0.1)`,
-            height: "445px",
+            height: "540px",
             overflow: "auto",
           }}
         >
@@ -42,7 +42,7 @@ export const MovieList = ({ actor, movies, collaborator }) => {
               ) : (
                 <Grid2 flexGrow={1} sx={{ height: "100%" }}>
                   <Typography variant="body1" textAlign={"center"}>
-                    No collaborations on top movies
+                    No collaborations
                   </Typography>
                 </Grid2>
               )}

@@ -4,7 +4,7 @@ export class TopNMoviesSearch {
   constructor(sourceActor, targetActor, movieCallback = (movie) => {}) {
     this.source_actor = sourceActor;
     this.target_actor = targetActor;
-    this.n = 50;
+    this.n = 20;
     this.movie_callback = movieCallback;
   }
 

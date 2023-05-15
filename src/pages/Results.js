@@ -29,9 +29,9 @@ export const Results = () => {
   const getSummaryText = () => {
     const sourceHasResults = Boolean(sourceActorResults.length);
     if (sourceHasResults) {
-      return `${targetActor.name} is in ${sourceActor.name}'s Top 50`;
+      return `${targetActor.name} is in ${sourceActor.name}'s Top 20 Movies`;
     } else {
-      return `${targetActor.name} is not in ${sourceActor.name}'s Top 50`;
+      return `${targetActor.name} is not in ${sourceActor.name}'s Top 20 Movies`;
     }
   };
 

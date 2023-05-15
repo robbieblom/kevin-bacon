@@ -1,5 +1,5 @@
 import { ByteTheoryTheme } from "@bytetheoryinnovations/bytetheory-ui-library";
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, Link, Paper, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { Form, Formik } from "Formik";
 import React from "react";
@@ -70,7 +70,7 @@ export const HomePage = () => {
     <Box sx={{ padding: "25px 50px 65px 50px" }}>
       <Box className="title">
         <Typography variant="h1" fontWeight={"bold"}>
-          Who's In My Top 50?
+          Who's In My Top 20?
         </Typography>
         <Typography
           fontWeight={"bold"}
@@ -80,10 +80,10 @@ export const HomePage = () => {
             mt: "10px",
           }}
         >
-          Enter an actor and collaborator to see if
+          Choose a star actor and a potential collaborator.
           <br />
-          We'll check up to two degrees of separation based on who they've
-          worked with.
+          Find out if the collaborator has worked with the star in any of the
+          star's <Link>top 20 most popular</Link> movies.
         </Typography>
       </Box>
 
@@ -110,7 +110,7 @@ export const HomePage = () => {
                 <ActorSelector
                   id="actor_name"
                   name="actor_name"
-                  label="Actor Name"
+                  label="Star Actor"
                   sx={{ maxWidth: "350px", color: "white" }}
                   onChange={(value) => setSourceActor(value)}
                 />
@@ -118,7 +118,7 @@ export const HomePage = () => {
                 <ActorSelector
                   id="collaborator_name"
                   name="collaborator_name"
-                  label="Collaborator Name"
+                  label="Collaborator"
                   sx={{ maxWidth: "350px", color: "white" }}
                   onChange={(value) => setTargetActor(value)}
                 />
