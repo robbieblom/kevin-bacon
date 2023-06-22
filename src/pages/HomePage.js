@@ -1,7 +1,7 @@
 import { ByteTheoryTheme } from "@bytetheoryinnovations/bytetheory-ui-library";
 import { Button, Link, Paper, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-import { Form, Formik } from "Formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import * as yup from "yup";
 import { shallow } from "zustand/shallow";

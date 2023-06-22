@@ -10,7 +10,6 @@ phases:
       nodejs: latest
     commands:
       - npm install
-      - npm install formik
   pre_build:
     commands:
       - echo API_KEY=$API_KEY >> .env
