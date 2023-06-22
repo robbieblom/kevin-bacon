@@ -8,7 +8,9 @@ phases:
   install:
     runtime-versions:
       nodejs: latest
-    commands: npm install
+    commands:
+      - npm install
+      - npm install formik
   pre_build:
     commands:
       - echo API_KEY=$API_KEY >> .env

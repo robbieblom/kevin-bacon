@@ -45,7 +45,7 @@
     "webpack-merge": "^5.9.0"
   },
   "dependencies": {
-    "@bytetheoryinnovations/bytetheory-ui-library": "^1.1.10",
+    "@bytetheoryinnovations/bytetheory-ui-library": "1.1.10",
     "@dagrejs/graphlib": "^2.1.12",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
