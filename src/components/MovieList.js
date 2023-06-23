@@ -5,7 +5,7 @@ import React from "react";
 import { _hexToRgb } from "../utils/utils";
 import { MovieCard } from "./MovieCard";
 
-export const MovieList = ({ actor, movies, collaborator }) => {
+export const MovieList = ({ actor, movies }) => {
   const theme = useTheme();
 
   const backgroundColorInRGB = _hexToRgb(theme.palette.background.default);
