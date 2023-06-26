@@ -2,6 +2,7 @@ const Dotenv = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 module.exports = {
   plugins: [
@@ -10,6 +11,9 @@ module.exports = {
       template: "./public/index.html",
     }),
     new MiniCssExtractPlugin(),
+    new FaviconsWebpackPlugin(
+      "./node_modules/@bytetheoryinnovations/bytetheory-ui-library/assets/DarkLogo.svg"
+    ),
   ],
   module: {
     rules: [
