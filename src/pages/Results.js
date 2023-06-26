@@ -1,3 +1,4 @@
+import { Section } from "@bytetheoryinnovations/bytetheory-ui-library/react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import React from "react";
@@ -15,15 +16,14 @@ export const Results = () => {
     shallow
   );
   const setSearched = useAppStore((state) => state.setSearched);
-  const [setMovieCount, setCurrentDegree] = useAppStore(
-    (state) => [state.setMovieCount, state.setCurrentDegree],
+  const [setMovieCount] = useAppStore(
+    (state) => [state.setMovieCount],
     shallow
   );
 
   const handleNewSearch = () => {
     setSearched(false);
     setMovieCount(0);
-    setCurrentDegree(0);
   };
 
   const getSummaryText = () => {
@@ -37,40 +37,42 @@ export const Results = () => {
 
   return (
     <>
-      <Grid2
-        container
-        direction="column"
-        spacing={4}
-        sx={{
-          padding: "15px 50px 0px 50px",
-        }}
-      >
-        <Grid2>
-          <Stack
-            spacing={1}
-            direction={"row"}
-            justifyContent={"space-between"}
-            flexWrap={"nowrap"}
-          >
-            <Typography variant="h4" fontWeight={"bold"}>
-              {getSummaryText()}
-            </Typography>
-            <Box>
-              <Button variant="outlined" size="xl" onClick={handleNewSearch}>
-                Search again
-              </Button>
-            </Box>
-          </Stack>
-        </Grid2>
+      <Section isHero={true} style={{ paddingTop: "0px" }}>
+        <Grid2
+          container
+          direction="column"
+          spacing={4}
+          sx={{
+            padding: "15px 50px 0px 50px",
+          }}
+        >
+          <Grid2>
+            <Stack
+              spacing={1}
+              direction={"row"}
+              justifyContent={"space-between"}
+              flexWrap={"nowrap"}
+            >
+              <Typography variant="h4" fontWeight={"bold"}>
+                {getSummaryText()}
+              </Typography>
+              <Box>
+                <Button variant="outlined" size="xl" onClick={handleNewSearch}>
+                  Search again
+                </Button>
+              </Box>
+            </Stack>
+          </Grid2>
 
-        <Grid2>
-          <MovieList
-            actor={sourceActor}
-            movies={sourceActorResults}
-            collaborator={targetActor}
-          />
+          <Grid2>
+            <MovieList
+              actor={sourceActor}
+              movies={sourceActorResults}
+              collaborator={targetActor}
+            />
+          </Grid2>
         </Grid2>
-      </Grid2>
+      </Section>
     </>
   );
 };

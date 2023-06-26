@@ -1,4 +1,7 @@
-import { ByteTheoryTheme } from "@bytetheoryinnovations/bytetheory-ui-library";
+import {
+  ByteTheoryTheme,
+  Section,
+} from "@bytetheoryinnovations/bytetheory-ui-library";
 import { Button, Link, Paper, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { Form, Formik } from "formik";
@@ -67,74 +70,76 @@ export const HomePage = () => {
   });
 
   return (
-    <Box sx={{ padding: "25px 50px 65px 50px" }}>
-      <Box className="title">
-        <Typography variant="h1" fontWeight={"bold"}>
-          Who's In My Top 20?
-        </Typography>
-        <Typography
-          fontWeight={"bold"}
-          color={"text.secondary"}
-          sx={{
-            lineHeight: 2.3,
-            mt: "10px",
-          }}
-        >
-          Choose a star actor and a potential collaborator.
-          <br />
-          Find out if the collaborator has worked with the star in any of the
-          star's <Link>top 20 most popular</Link> movies.
-        </Typography>
-      </Box>
-
-      <ByteTheoryTheme mode={"light"}>
-        <Paper
-          variant="outlined"
-          sx={{
-            maxWidth: "430px",
-            mt: "30px",
-          }}
-        >
-          <Formik
-            initialValues={{
-              actor_name: "",
-              actor_id: "",
-              collaborator_name: "",
-              collaborator_id: "",
+    <>
+      <Section isHero={true} style={{ paddingTop: "0px" }}>
+        <Box className="title">
+          <Typography variant="h1" fontWeight={"bold"}>
+            Who's In My Top 20?
+          </Typography>
+          <Typography
+            fontWeight={"bold"}
+            color={"text.secondary"}
+            sx={{
+              lineHeight: 2.3,
+              mt: "10px",
             }}
-            onSubmit={(values) => handleSubmit(values)}
-            validationSchema={validationSchema}
           >
-            <Form>
-              <Stack className="form" spacing={2} sx={{ padding: "40px" }}>
-                <ActorSelector
-                  id="actor_name"
-                  name="actor_name"
-                  label="Star Actor"
-                  sx={{ maxWidth: "350px", color: "white" }}
-                  onChange={(value) => setSourceActor(value)}
-                />
+            Choose a star actor and a potential collaborator.
+            <br />
+            Find out if the collaborator has worked with the star in any of the
+            star's <Link>top 20 most popular</Link> movies.
+          </Typography>
+        </Box>
 
-                <ActorSelector
-                  id="collaborator_name"
-                  name="collaborator_name"
-                  label="Collaborator"
-                  sx={{ maxWidth: "350px", color: "white" }}
-                  onChange={(value) => setTargetActor(value)}
-                />
+        <ByteTheoryTheme mode={"light"}>
+          <Paper
+            variant="outlined"
+            sx={{
+              maxWidth: "430px",
+              mt: "30px",
+            }}
+          >
+            <Formik
+              initialValues={{
+                actor_name: "",
+                actor_id: "",
+                collaborator_name: "",
+                collaborator_id: "",
+              }}
+              onSubmit={(values) => handleSubmit(values)}
+              validationSchema={validationSchema}
+            >
+              <Form>
+                <Stack className="form" spacing={2} sx={{ padding: "40px" }}>
+                  <ActorSelector
+                    id="actor_name"
+                    name="actor_name"
+                    label="Star Actor"
+                    sx={{ maxWidth: "350px", color: "white" }}
+                    onChange={(value) => setSourceActor(value)}
+                  />
 
-                <Button
-                  sx={{ width: "175px" }}
-                  variant="contained"
-                  type="submit"
-                >
-                  Search
-                </Button>
-              </Stack>
-            </Form>
-          </Formik>
-        </Paper>
-      </ByteTheoryTheme>
-    </Box>
+                  <ActorSelector
+                    id="collaborator_name"
+                    name="collaborator_name"
+                    label="Collaborator"
+                    sx={{ maxWidth: "350px", color: "white" }}
+                    onChange={(value) => setTargetActor(value)}
+                  />
+
+                  <Button
+                    sx={{ width: "175px" }}
+                    variant="contained"
+                    type="submit"
+                  >
+                    Search
+                  </Button>
+                </Stack>
+              </Form>
+            </Formik>
+          </Paper>
+        </ByteTheoryTheme>
+      </Section>
+    </>
   );
 };

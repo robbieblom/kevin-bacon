@@ -1,7 +1,7 @@
 import {
+  ByteTheoryConfig,
   ByteTheoryTheme,
   GlobalLayout,
-  PageLoadAnim,
 } from "@bytetheoryinnovations/bytetheory-ui-library";
 import React from "react";
 import { shallow } from "zustand/shallow";
@@ -33,11 +33,11 @@ export const App = () => {
 
   return (
     <ErrorBoundary fallback={<Error />}>
-      <ByteTheoryTheme mode={"dark"} rebaseStyles>
-        <PageLoadAnim>
+      <ByteTheoryConfig providingLibraries={["@mui/material"]}>
+        <ByteTheoryTheme mode={"dark"} rebaseStyles>
           <GlobalLayout>{getPages()}</GlobalLayout>
-        </PageLoadAnim>
-      </ByteTheoryTheme>
+        </ByteTheoryTheme>
+      </ByteTheoryConfig>
     </ErrorBoundary>
   );
 };

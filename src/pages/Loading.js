@@ -1,3 +1,4 @@
+import { Section } from "@bytetheoryinnovations/bytetheory-ui-library/react";
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useAppStore } from "../stores/AppStore";
@@ -27,16 +28,18 @@ export const Loading = () => {
   };
   return (
     <>
-      <Stack
-        direction="column"
-        spacing={9}
-        alignItems={"center"}
-        justifyContent={"center"}
-        sx={{ height: "100%" }}
-      >
-        <CircularProgress size={150} />
-        {getLoadingText()}
-      </Stack>
+      <Section isHero={true} style={{ paddingTop: "0px" }}>
+        <Stack
+          direction="column"
+          spacing={9}
+          alignItems={"center"}
+          justifyContent={"center"}
+          sx={{ height: "100%" }}
+        >
+          <CircularProgress size={150} />
+          {getLoadingText()}
+        </Stack>
+      </Section>
     </>
   );
 };
