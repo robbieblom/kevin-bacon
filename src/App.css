@@ -18,12 +18,11 @@ body {
   right: 0px;
   bottom: 0px;
   left: 0px;
-  opacity: 0.95;
-  filter: brightness(25%);
   position: absolute;
 }
 
 #app {
   position: relative;
+  background-color: rgba(27, 27, 27, 0.85);
   height: 100%;
 }

@@ -12,7 +12,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
     new FaviconsWebpackPlugin(
-      "./node_modules/@bytetheoryinnovations/bytetheory-ui-library/assets/DarkLogo.svg"
+      "./node_modules/@bytetheoryinnovations/bytetheory-ui-library/assets/DarkLogoSVG.svg"
     ),
   ],
   module: {
