@@ -28,7 +28,7 @@ export const Loading = () => {
   };
   return (
     <>
-      <Section isHero={true} style={{ paddingTop: "0px" }}>
+      <Section isHero={true}>
         <Stack
           direction="column"
           spacing={9}

@@ -71,7 +71,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <Section isHero={true} style={{ paddingTop: "0px" }}>
+      <Section isHero={true} style={{ paddingTop: "50px" }}>
         <Box className="title">
           <Typography variant="h1" fontWeight={"bold"}>
             Who's In My Top 20?

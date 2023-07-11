@@ -6,7 +6,7 @@ import React from "react";
 export const Error = () => {
   return (
     <>
-      <Section isHero={true} style={{ paddingTop: "0px" }}>
+      <Section isHero={true} style={{ paddingTop: "50px" }}>
         <Stack
           direction="column"
           spacing={4}
@@ -17,7 +17,6 @@ export const Error = () => {
           }}
         >
           <Alert severity="error">
-            {" "}
             There was an error. Please try again later.
           </Alert>
         </Stack>

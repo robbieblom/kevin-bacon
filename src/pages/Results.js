@@ -37,7 +37,7 @@ export const Results = () => {
 
   return (
     <>
-      <Section isHero={true} style={{ paddingTop: "0px" }}>
+      <Section isHero={true} style={{ paddingTop: "50px" }}>
         <Grid2
           container
           direction="column"
