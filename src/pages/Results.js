@@ -3,6 +3,7 @@ import {
   Spacer,
   useTheme,
 } from "@bytetheoryinnovations/bytetheory-ui-library/react";
+import { useMUIMediaQuery } from "@bytetheoryinnovations/bytetheory-ui-library/react/hooks";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import { shallow } from "zustand/shallow";
@@ -12,6 +13,7 @@ import { useAppStore } from "../stores/AppStore";
 
 export const Results = () => {
   const theme = useTheme();
+  const { isSmallTablet } = useMUIMediaQuery();
   const [sourceActor, targetActor] = useAppStore(
     (state) => [state.sourceActor, state.targetActor],
     shallow
@@ -50,7 +52,7 @@ export const Results = () => {
         }}
       >
         <Stack
-          spacing={8}
+          spacing={4}
           direction={"row"}
           justifyContent={"space-between"}
           alignItems={"center"}
@@ -60,7 +62,12 @@ export const Results = () => {
           <Typography variant="h4" fontWeight={"bold"}>
             {getSummaryText()}
           </Typography>
-          <Button variant="outlined" onClick={handleNewSearch}>
+          <Button
+            variant="outlined"
+            onClick={handleNewSearch}
+            size={isSmallTablet ? "medium" : "small"}
+            sx={{ whiteSpace: "nowrap", minWidth: "max-content" }}
+          >
             Search again
           </Button>
         </Stack>
