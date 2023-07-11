@@ -1,9 +1,9 @@
 import {
   Section,
+  Spacer,
   useTheme,
 } from "@bytetheoryinnovations/bytetheory-ui-library/react";
-import { Button, Stack, Typography } from "@mui/material";
-import Grid2 from "@mui/material/Unstable_Grid2";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import { shallow } from "zustand/shallow";
 import { Background } from "../components/Background";
@@ -49,39 +49,31 @@ export const Results = () => {
           height: "100%",
         }}
       >
-        <Grid2
-          container
-          direction="column"
-          spacing={4}
-          sx={{
-            position: "relative", // for stacking context with background
-          }}
+        <Stack
+          spacing={8}
+          direction={"row"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+          flexWrap={"nowrap"}
+          sx={{ position: "relative" }}
         >
-          <Grid2>
-            <Stack
-              spacing={8}
-              direction={"row"}
-              justifyContent={"space-between"}
-              alignItems={"center"}
-              flexWrap={"nowrap"}
-            >
-              <Typography variant="h4" fontWeight={"bold"}>
-                {getSummaryText()}
-              </Typography>
-              <Button variant="outlined" onClick={handleNewSearch}>
-                Search again
-              </Button>
-            </Stack>
-          </Grid2>
+          <Typography variant="h4" fontWeight={"bold"}>
+            {getSummaryText()}
+          </Typography>
+          <Button variant="outlined" onClick={handleNewSearch}>
+            Search again
+          </Button>
+        </Stack>
 
-          <Grid2>
-            <MovieList
-              actor={sourceActor}
-              movies={sourceActorResults}
-              collaborator={targetActor}
-            />
-          </Grid2>
-        </Grid2>
+        <Spacer spacing={"35px"} />
+
+        <Box sx={{ position: "relative" }}>
+          <MovieList
+            actor={sourceActor}
+            movies={sourceActorResults}
+            collaborator={targetActor}
+          />
+        </Box>
       </Section>
     </>
   );

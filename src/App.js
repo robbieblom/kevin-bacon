@@ -8,7 +8,6 @@ import {
 } from "@bytetheoryinnovations/bytetheory-ui-library";
 import React from "react";
 import { shallow } from "zustand/shallow";
-// import "./App.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Error } from "./pages/Error";
 import { HomePage } from "./pages/HomePage.js";
