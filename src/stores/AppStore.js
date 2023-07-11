@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { mockSourceResults, mockTargetResults } from "../mocks/mockResults";
 
 export const useAppStore = create((set) => ({
   loading: false,
@@ -17,23 +16,23 @@ export const useAppStore = create((set) => ({
   setSearched: (s) => {
     set({ searched: s });
   },
-  // sourceActor: null,
-  sourceActor: { name: "jonah" },
+  sourceActor: null,
+  // sourceActor: { name: "jonah" },
   setSourceActor: (sa) => {
     set({ sourceActor: sa });
   },
-  // targetActor: null,
-  targetActor: { name: "brad" },
+  targetActor: null,
+  // targetActor: { name: "brad" },
   setTargetActor: (ta) => {
     set({ targetActor: ta });
   },
-  // sourceActorResults: [],
-  sourceActorResults: mockSourceResults,
+  sourceActorResults: [],
+  // sourceActorResults: mockSourceResults,
   setSourceActorResults: (r) => {
     set({ sourceActorResults: r });
   },
-  // targetActorResults: [],
-  targetActorResults: mockTargetResults,
+  targetActorResults: [],
+  // targetActorResults: mockTargetResults,
   setTargetActorResults: (r) => {
     set({ targetActorResults: r });
   },

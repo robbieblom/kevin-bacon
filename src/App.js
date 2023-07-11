@@ -76,8 +76,8 @@ export const App = () => {
     if (loading) {
       // if (true) {
       return <Loading />;
-      // } else if (searched) {
-    } else if (true) {
+    } else if (searched) {
+      // } else if (true) {
       return <Results />;
     } else {
       return <HomePage />;
