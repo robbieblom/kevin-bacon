@@ -8,7 +8,7 @@ import {
 } from "@bytetheoryinnovations/bytetheory-ui-library";
 import React from "react";
 import { shallow } from "zustand/shallow";
-import "./App.css";
+// import "./App.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Error } from "./pages/Error";
 import { HomePage } from "./pages/HomePage.js";
@@ -77,8 +77,8 @@ export const App = () => {
     if (loading) {
       // if (true) {
       return <Loading />;
-    } else if (searched) {
-      // } else if (true) {
+      // } else if (searched) {
+    } else if (true) {
       return <Results />;
     } else {
       return <HomePage />;

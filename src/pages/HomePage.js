@@ -2,7 +2,7 @@ import {
   ByteTheoryTheme,
   Section,
 } from "@bytetheoryinnovations/bytetheory-ui-library";
-import { Button, Link, Paper, Typography } from "@mui/material";
+import { Button, Link, Paper, Typography, useTheme } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import { Form, Formik } from "formik";
 import React from "react";
@@ -10,9 +10,12 @@ import * as yup from "yup";
 import { shallow } from "zustand/shallow";
 import { TopNMoviesSearch } from "../alg/TopNMoviesSearch";
 import { ActorSelector } from "../components/ActorSelector";
+import { Background } from "../components/Background";
 import { useAppStore } from "../stores/AppStore";
 
 export const HomePage = () => {
+  const theme = useTheme();
+
   const [setLoading, setSearched] = useAppStore(
     (state) => [state.setLoading, state.setSearched],
     shallow
@@ -71,8 +74,15 @@ export const HomePage = () => {
 
   return (
     <>
-      <Section isHero={true} style={{ paddingTop: "50px" }}>
-        <Box className="title">
+      <Section
+        backgroundComponent={<Background />}
+        style={{
+          paddingTop: `calc(${theme.custom.navBarHeight} + 50px)`,
+          height: "100%",
+        }}
+      >
+        {/* positioning is for background */}
+        <Box className="title" sx={{ position: "relative" }}>
           <Typography variant="h1" fontWeight={"bold"}>
             Who's In My Top 20?
           </Typography>
@@ -87,7 +97,15 @@ export const HomePage = () => {
             Choose a star actor and a potential collaborator.
             <br />
             Find out if the collaborator has worked with the star in any of the
-            star's <Link>top 20 most popular</Link> movies.
+            star's{" "}
+            <Link
+              href="https://developer.themoviedb.org/docs/popularity-and-trending"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              top 20 most popular
+            </Link>{" "}
+            movies.
           </Typography>
         </Box>
 
@@ -97,6 +115,7 @@ export const HomePage = () => {
             sx={{
               maxWidth: "430px",
               mt: "30px",
+              position: "relative", //for background
             }}
           >
             <Formik

@@ -18,7 +18,6 @@ export const MovieList = ({ actor, movies }) => {
           elevation={5}
           sx={{
             backgroundColor: `rgba(${r}, ${g}, ${b}, 0.1)`,
-            height: "540px",
             overflow: "auto",
           }}
         >
