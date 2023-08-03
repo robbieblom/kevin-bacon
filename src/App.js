@@ -3,11 +3,12 @@ import {
   ByteTheoryTheme,
   Footer,
   GlobalLayout,
-  MenuIcon,
   NavModule,
 } from "@bytetheoryinnovations/bytetheory-ui-library";
+import { Logo } from "@bytetheoryinnovations/bytetheory-ui-library/assets";
 import React from "react";
 import { shallow } from "zustand/shallow";
+import DocsButton from "./components/DocsButton";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { Error } from "./pages/Error";
 import { HomePage } from "./pages/HomePage.js";
@@ -16,35 +17,13 @@ import { Results } from "./pages/Results.js";
 import { useAppStore } from "./stores/AppStore.js";
 
 export const App = () => {
-  const navDrawerMenuItems = [
-    {
-      name: "Home",
-      url: "https://bytetheoryinnovations.com/#home",
-      options: { target: "_blank", rel: "noopener nofollow noreferrer" },
-    },
-    {
-      name: "About",
-      url: "https://bytetheoryinnovations.com/#services",
-      options: { target: "_blank", rel: "noopener nofollow noreferrer" },
-    },
-    {
-      name: "Projects",
-      url: "https://bytetheoryinnovations.com/#projects",
-      options: { target: "_blank", rel: "noopener nofollow noreferrer" },
-    },
-    {
-      name: "Contact",
-      url: "https://bytetheoryinnovations.com/#contact",
-      options: { target: "_blank", rel: "noopener nofollow noreferrer" },
-    },
-  ];
-  const logoUrl = {
+  const navLogoUrl = {
     name: "Logo",
     url: "https://bytetheoryinnovations.com/#home",
     options: { target: "_blank", rel: "noopener nofollow noreferrer" },
   };
 
-  const footerMenuItems = [
+  const linksMenuItems = [
     {
       name: "Home",
       url: "https://bytetheoryinnovations.com/#home",
@@ -91,11 +70,11 @@ export const App = () => {
           <GlobalLayout
             nav={
               <NavModule
-                icons={[<MenuIcon key={1} menuItems={navDrawerMenuItems} />]}
-                logoUrl={logoUrl}
+                leftIcons={[<DocsButton key={1} />]}
+                rightIcons={[<Logo key={1} logoUrl={navLogoUrl} />]}
               />
             }
-            footer={<Footer footerMenuItems={footerMenuItems} />}
+            footer={<Footer linksMenuItems={linksMenuItems} />}
           >
             {getPages()}
           </GlobalLayout>
