@@ -16,7 +16,9 @@ export const Background = () => {
         sx={{
           height: "100%",
           width: "100%",
-          position: "relative",
+          position: "absolute",
+          top: 0,
+          left: 0,
         }}
       >
         <Image />

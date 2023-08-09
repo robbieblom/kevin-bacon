@@ -75,12 +75,13 @@ export const HomePage = () => {
   return (
     <>
       <Section
-        backgroundComponent={<Background />}
         style={{
           paddingTop: `calc(${theme.custom.navBarHeight} + 50px)`,
           height: "100%",
+          position: "relative",
         }}
       >
+        <Background />
         {/* positioning is for background */}
         <Box className="title" sx={{ position: "relative" }}>
           <Typography variant="h1" fontWeight={"bold"}>
