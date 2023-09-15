@@ -66,7 +66,7 @@ export const buildSpec = (
     },
     artifacts: {
       files: ["**/*"],
-      "base-directory": `${sourceCode.frontendHome}/public`,
+      "base-directory": `${sourceCode.frontendHome}/dist`,
     },
   };
 };
