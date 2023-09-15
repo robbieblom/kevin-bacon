@@ -23,11 +23,11 @@ const hostedZoneId = process.env.hostedZoneId as string;
 const region = process.env.region as string;
 
 const appContext: AppContext = {
-  projectName: "dev-top-movies",
+  projectName: "topmovies",
   repositoryName: "kevin-bacon",
   repositoryOwner: "robbieblom",
   repositoryBranch: "main",
-  siteDNS: "dev-topmovies.bytetheoryinnovations.com",
+  siteDNS: "topmovies.bytetheoryinnovations.com",
   homeDirectory: path.join(__dirname, ".."),
   accountId,
   region,
