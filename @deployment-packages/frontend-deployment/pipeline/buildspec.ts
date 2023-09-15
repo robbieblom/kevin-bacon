@@ -16,7 +16,7 @@ const generateBootstrappedEnvCommands = (
   );
   envFileParameterKeys.forEach((key) => {
     commands.push(
-      `echo ${key}=$${key} >> ${sourceCode.frontendHome}/.env.production`
+      `echo ${key}=$${key} >> ${sourceCode.frontendHome}/.env`
     );
   });
 
@@ -47,7 +47,6 @@ export const buildSpec = (
           nodejs: "latest",
         },
         commands: [
-          "npm install -g gatsby-cli",
           `npm install --prefix ${sourceCode.frontendHome}`,
         ],
       },

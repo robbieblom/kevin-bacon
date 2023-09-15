@@ -4,6 +4,9 @@
   "bin": {
     "top-movies": "bin/top-movies.js"
   },
+  "workspaces": [
+    "./src/*"
+  ],
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
